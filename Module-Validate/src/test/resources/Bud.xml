@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DIF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/" xsi:schemaLocation="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/dif_v9.8.4.xsd">
+    <Entry_ID>imr_1423</Entry_ID>
+    <Entry_Title>Fast oseanografisk stasjon - Bud (1946-)</Entry_Title>
+    <Data_Set_Citation/>
+    <Temporal_Coverage>
+        <Start_Date>1946-02-20</Start_Date>
+    </Temporal_Coverage>
+    <Data_Set_Progress xsi:nil="true"/>
+    <Spatial_Coverage>
+        <Southernmost_Latitude>62.9333</Southernmost_Latitude>
+        <Northernmost_Latitude>62.9333</Northernmost_Latitude>
+        <Westernmost_Longitude>6.7833</Westernmost_Longitude>
+        <Easternmost_Longitude>6.7833</Easternmost_Longitude>
+        <Minimum_Altitude/>
+        <Maximum_Altitude/>
+        <Minimum_Depth>0</Minimum_Depth>
+        <Maximum_Depth>250</Maximum_Depth>
+    </Spatial_Coverage>
+    <Data_Set_Language xsi:nil="true"/>
+    <Data_Center>
+        <Data_Center_Name>
+            <Short_Name>Havforskningsinstituttet</Short_Name>
+            <Long_Name>Havforskningsinstituttet</Long_Name>
+        </Data_Center_Name>
+        <Data_Set_ID>1423</Data_Set_ID>
+        <Personnel>
+            <Role>Datacenter</Role>
+            <First_Name>Aave</First_Name>
+            <Middle_Name/>
+            <Last_Name>Lepland</Last_Name>
+            <Email>aave.lepland@ngu.no</Email>
+            <Phone/>
+            <Fax/>
+            <Contact_Address>
+                <Address/>
+                <City/>
+                <Province_or_State/>
+                <Postal_Code/>
+                <Country/>
+            </Contact_Address>
+        </Personnel>
+    </Data_Center>
+    <Summary>Langtidsserier av oseanografiske stasjoner på faste steder og i standard dyp. Observasjonene utføres av lokale fiskere. Bud er en av for tiden 8 stasjoner i drift. Alle oseanografiske data er bearbeidet og delvis kvalitetskontrollerte. Enkle meteorologiske observasjoner blir normalt tatt (ingen kvalitetskontroll).</Summary>
+    <Related_URL>
+        <URL_Content_Type>
+            <Type>GET DATA</Type>
+        </URL_Content_Type>
+        <URL>ftp://ftp.nmdc.no/nmdc/IMR/fastestasjoner/Bud/Bud.txt</URL>
+        <Description/>
+    </Related_URL>
+    <IDN_Node>
+        <Short_Name>DOKIPY</Short_Name>
+    </IDN_Node>
+    <Originating_Metadata_Node>NO/NMDC/IMR</Originating_Metadata_Node>
+    <Metadata_Name>CEOS IDN DIF</Metadata_Name>
+    <Metadata_Version>9.7.1</Metadata_Version>
+    <DIF_Creation_Date>2010-08-24</DIF_Creation_Date>
+    <Last_DIF_Revision_Date>2015-02-10</Last_DIF_Revision_Date>
+</DIF>
