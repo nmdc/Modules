@@ -1,6 +1,7 @@
 package no.nmdc.module.validate.config;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.spring.javaconfig.SingleRouteCamelConfiguration;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
@@ -14,12 +15,16 @@ import org.springframework.context.annotation.Configuration;
 public class CamelConfig extends SingleRouteCamelConfiguration implements InitializingBean {
 
     /**
-     * The route
-     * 1. Get message from the validation jms.
-     * 2. Validate them in the service.
-     * 3. Send them to the transformation queue.
+     * DIF format namespace.
+     */
+     private static final Namespaces DIF_NAMESPACE = new Namespaces("dif", "http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/").add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+
+
+    /**
+     * The route 1. Get message from the validation jms. 2. Validate them in the
+     * service. 3. Send them to the transformation queue.
      *
-     * @return  The route.
+     * @return The route.
      */
     @Override
     public RouteBuilder route() {
@@ -27,11 +32,23 @@ public class CamelConfig extends SingleRouteCamelConfiguration implements Initia
 
             @Override
             public void configure() {
-               from("jms:queue:nmdc/harvest-validate")
-                       .errorHandler(deadLetterChannel("jms:queue:dead").maximumRedeliveries(3).redeliveryDelay(30000))
-                       .to("validateService")
-                       .to("log:end?level=INFO")
-                       .to("jms:queue:nmdc/harvest-transform");
+                from("jms:queue:nmdc/harvest-validate")
+                        .errorHandler(deadLetterChannel("jms:queue:nmdc/harvest-failure").maximumRedeliveries(3).redeliveryDelay(30000))
+                        .to("log:begin?level=INFO&showHeaders=true&showBody=false")
+                        .doTry()
+                            .choice()
+                                .when().xpath("/dif:DIF", DIF_NAMESPACE)
+                                    .to("validator:dif.xsd")
+                                    .setHeader("format", simple("dif"))
+                                    .to("log:end?level=INFO&showHeaders=true&showBody=false")
+                                    .to("jms:queue:nmdc/harvest-transform")
+                                .otherwise()
+                                    .to("log:end?level=WARN&showHeaders=true&showBody=false")
+                                    .to("jms:queue:nmdc/harvest-failure")
+                            .endChoice().endDoTry()
+                        .doCatch(org.apache.camel.ValidationException.class)
+                            .to("log:end?level=WARN&showHeaders=true&showBody=false&showCaughtException=true")
+                        .end();
             }
         };
     }

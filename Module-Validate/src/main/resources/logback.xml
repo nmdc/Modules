@@ -4,7 +4,7 @@
     <!-- Rolling file appender -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
+            <level>DEBUG</level>
         </filter>
 
         <file>${catalina.base}/logs/nmdcmodules/modules_validate.log</file>
@@ -41,7 +41,7 @@
         </encoder>
     </appender>
 
-    <root level="info">
+    <root level="debug">
         <appender-ref ref="FILE" />
         <appender-ref ref="FILEERROR" />
     </root>

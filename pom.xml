@@ -7,7 +7,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <camel.version>2.15.0</camel.version>
+        <camel.version>2.15.1</camel.version>
         <activemq.version>5.11.1</activemq.version>
         <xbean.version>4.1</xbean.version>
     </properties>
@@ -82,6 +82,11 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring-javaconfig</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-saxon</artifactId>
             <version>${camel.version}</version>
         </dependency>
         <dependency>
