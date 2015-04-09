@@ -16,7 +16,7 @@ public class CamelConfig extends SingleRouteCamelConfiguration implements Initia
     /**
      * The route
      * 1. Get message from the validation jms.
-     * 2. Validate them in the service.
+     * 2. Transform them in the service.
      * 3. Send them to the transformation queue.
      *
      * @return  The route.
@@ -29,9 +29,14 @@ public class CamelConfig extends SingleRouteCamelConfiguration implements Initia
             public void configure() {
                from("jms:queue:nmdc/harvest-transform")
                        .errorHandler(deadLetterChannel("jms:queue:dead").maximumRedeliveries(3).redeliveryDelay(30000))
-                       .to("transformService")
-                       .to("log:end?level=INFO")
-                       .to("jms:queue:nmdc/harvest-reindex");
+                       .choice()
+                            .when(header("format").isEqualTo("dif"))
+                                .to("log:end?level=INFO")
+                                .to("jms:queue:nmdc/harvest-reindex")
+                            .otherwise()
+                                .to("xslt:")
+                                .to("log:end?level=INFO")
+                                .to("jms:queue:nmdc/harvest-reindex");
             }
         };
     }

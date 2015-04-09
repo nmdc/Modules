@@ -13,8 +13,11 @@ import org.springframework.stereotype.Service;
 public class TransformServiceImpl implements TransformService {
 
     @Override
-    public Map<String,Object> transform(Map<String,Object> body) {
+    public Map<String,Object> transform(final Map<String,Object> body) {
         Map<String,Object> params = new HashMap(body);
+        if (params.get("format").equals("dif")) {
+            
+        }
         params.put("NMDCFileName", "Something later");
         return params;
     }
