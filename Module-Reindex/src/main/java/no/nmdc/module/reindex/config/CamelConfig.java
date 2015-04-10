@@ -1,8 +1,12 @@
 package no.nmdc.module.reindex.config;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.solr.SolrConstants;
 import org.apache.camel.spring.javaconfig.SingleRouteCamelConfiguration;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -12,6 +16,13 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class CamelConfig extends SingleRouteCamelConfiguration implements InitializingBean {
+
+    /**
+     * Module properties.
+     */
+    @Autowired
+    @Qualifier("moduleConf")
+    private PropertiesConfiguration moduleConf;
 
     /**
      * The route
@@ -29,7 +40,10 @@ public class CamelConfig extends SingleRouteCamelConfiguration implements Initia
             public void configure() {
                from("jms:queue:nmdc/harvest-reindex")
                        .errorHandler(deadLetterChannel("jms:queue:dead").maximumRedeliveries(3).redeliveryDelay(30000))
-                       .to("reindexService")
+                       .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_INSERT))
+                       .to("solr://" + moduleConf.getString("solr.url"))
+                       .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_COMMIT))
+                       .to("solr://" + moduleConf.getString("solr.url"))
                        .to("log:end?level=INFO");
             }
         };

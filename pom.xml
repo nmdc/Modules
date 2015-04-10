@@ -57,7 +57,6 @@
     </repositories>
 
     <modules>
-        <module>Module-FileRead</module>
         <module>Module-Validate</module>
         <module>Module-Transform</module>
         <module>Module-Reindex</module>
@@ -66,7 +65,25 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test-spring</artifactId>
+            <version>${camel.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test</artifactId>
+            <version>${camel.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-solr</artifactId>
             <version>${camel.version}</version>
         </dependency>
         <dependency>

@@ -22,7 +22,7 @@ public class ApplicationInit extends AbstractDispatcherServletInitializer {
     @Override
     protected WebApplicationContext createRootApplicationContext() {
         AnnotationConfigWebApplicationContext cxt = new AnnotationConfigWebApplicationContext();
-        cxt.scan("no.nmdc.module.reindex.config", "no.nmdc.module.reindex.service");
+        cxt.scan("no.nmdc.module.reindex.config");
         return cxt;
     }
 
