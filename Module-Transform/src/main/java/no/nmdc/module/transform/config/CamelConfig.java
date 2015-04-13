@@ -28,15 +28,23 @@ public class CamelConfig extends SingleRouteCamelConfiguration implements Initia
             @Override
             public void configure() {
                from("jms:queue:nmdc/harvest-transform")
-                       .errorHandler(deadLetterChannel("jms:queue:dead").maximumRedeliveries(3).redeliveryDelay(30000))
+                       .errorHandler(deadLetterChannel("jms:queue:nmdc/harvest-failure").maximumRedeliveries(3).redeliveryDelay(30000))
                        .choice()
                             .when(header("format").isEqualTo("dif"))
                                 .to("log:end?level=INFO")
+                                .to("xslt:DifToNMDC.xsl?saxon=true")
+                                .to("file:c:\\outbox?charset=utf-8")
+                                .to("jms:queue:nmdc/harvest-reindex")
+                            .when(header("format").isEqualTo("iso-19139"))
+                                .to("log:end?level=INFO")
+                                .to("xslt:ISO19139ToNMDC.xsl?saxon=true")
+                                .to("file:c:\\outbox?charset=utf-8")
                                 .to("jms:queue:nmdc/harvest-reindex")
                             .otherwise()
-                                .to("xslt:")
-                                .to("log:end?level=INFO")
-                                .to("jms:queue:nmdc/harvest-reindex");
+                                .to("log:end?level=WARN")
+                                .to("jms:queue:nmdc/harvest-failure")
+                        .endChoice()
+                       .end();
             }
         };
     }

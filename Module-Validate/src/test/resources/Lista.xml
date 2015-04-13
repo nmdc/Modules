@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<DIF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/" xsi:schemaLocation="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/dif_v9.8.4.xsd">
+<DIF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/" xsi:schemaLocation="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/ http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/dif_v9.8.4.xsd">
     <Entry_ID>imr_1420</Entry_ID>
     <Entry_Title>Fast oseanografisk stasjon - Lista (1942-)</Entry_Title>
     <Data_Set_Citation/>
