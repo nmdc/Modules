@@ -105,7 +105,7 @@
                 <xsl:variable name="minLatitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:southBoundLatitude/gco:Decimal" />
                 <xsl:variable name="maxLatitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:northBoundLatitude/gco:Decimal" />
                 <xsl:choose>
-                    <xsl:when test="$minLongitude = $maxLongitude and minLatitude = $maxLatitude">
+                    <xsl:when test="$minLongitude = $maxLongitude and $minLatitude = $maxLatitude">
                         <nmdc:point><xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude"/></nmdc:point>
                     </xsl:when>
                     <xsl:otherwise>
