@@ -41,7 +41,7 @@ public class CamelConfig extends SingleRouteCamelConfiguration implements Initia
                        .choice()
                             .when(header("format").isEqualTo("dif"))
                                 .to("log:end?level=INFO")
-                                .to("xslt:DifToNMDC.xsl?saxon=true")
+                                .to("xslt:DIFToNMDC.xsl?saxon=true")
                                 .to("file:" + moduleConf.getString("savedir") + "?charset=utf-8")
                                 .to("jms:queue:nmdc/harvest-reindex")
                             .when(header("format").isEqualTo("iso-19139"))
