@@ -104,7 +104,14 @@
                 <xsl:variable name="maxLongitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:eastBoundLongitude/gco:Decimal" />
                 <xsl:variable name="minLatitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:southBoundLatitude/gco:Decimal" />
                 <xsl:variable name="maxLatitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:northBoundLatitude/gco:Decimal" />
-                <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>&#160;<xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>&#160;<xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude" />))</nmdc:polygon>
+                <xsl:choose>
+                    <xsl:when test="$minLongitude = $maxLongitude and minLatitude = $maxLatitude">
+                        <nmdc:point><xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude"/></nmdc:point>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>&#160;<xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>&#160;<xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude" />))</nmdc:polygon>
+                    </xsl:otherwise>
+                </xsl:choose>
             </nmdc:parameters>
         </nmdc:meta>
     </xsl:template>

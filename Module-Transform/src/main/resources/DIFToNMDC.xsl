@@ -23,13 +23,18 @@
                 <xsl:copy-of select="." />
             </nmdc:nmdc-metadata>
             <nmdc:parameters>
-                <nmdc:polygon>
-                    <xsl:variable name="minLongitude" select="//dif:Easternmost_Longitude" />
-                    <xsl:variable name="maxLongitude" select="//dif:Westernmost_Longitude" />
-                    <xsl:variable name="minLatitude" select="//dif:Southernmost_Latitude" />
-                    <xsl:variable name="maxLatitude" select="//dif:Northernmost_Latitude" />
-                    POLYGON((<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>&#160;<xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>&#160;<xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude" />))
-                </nmdc:polygon>
+                <xsl:variable name="minLongitude" select="//dif:Easternmost_Longitude" />
+                <xsl:variable name="maxLongitude" select="//dif:Westernmost_Longitude" />
+                <xsl:variable name="minLatitude" select="//dif:Southernmost_Latitude" />
+                <xsl:variable name="maxLatitude" select="//dif:Northernmost_Latitude" />
+                <xsl:choose>
+                    <xsl:when test="$minLongitude = $maxLongitude and $minLatitude = $maxLatitude">
+                        <nmdc:point><xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude"/></nmdc:point>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>&#160;<xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>&#160;<xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude" />))</nmdc:polygon>
+                    </xsl:otherwise>
+                </xsl:choose>
             </nmdc:parameters>
         </nmdc:meta>
     </xsl:template>
