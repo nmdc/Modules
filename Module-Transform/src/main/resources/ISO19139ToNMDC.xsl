@@ -20,9 +20,8 @@
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:gml="http://www.opengis.net/gml"
 >
-
+    <xsl:strip-space elements="nmdc:polygon"/>
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" media-type="text/xml"/>
-    <xsl:preserve-space elements="nmdc:polygon" />
 
     <!-- MATCH ROOT DIF -->
     <xsl:template match="gmd:MD_Metadata">
@@ -101,13 +100,11 @@
                 </dif:DIF>
             </nmdc:nmdc-metadata>
             <nmdc:parameters>
-                <nmdc:polygon>
-                    <xsl:variable name="minLongitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:westBoundLongitude/gco:Decimal" />
-                    <xsl:variable name="maxLongitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:eastBoundLongitude/gco:Decimal" />
-                    <xsl:variable name="minLatitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:southBoundLatitude/gco:Decimal" />
-                    <xsl:variable name="maxLatitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:northBoundLatitude/gco:Decimal" />
-                    POLYGON((<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>&#160;<xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>&#160;<xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude" />))
-                </nmdc:polygon>
+                <xsl:variable name="minLongitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:westBoundLongitude/gco:Decimal" />
+                <xsl:variable name="maxLongitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:eastBoundLongitude/gco:Decimal" />
+                <xsl:variable name="minLatitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:southBoundLatitude/gco:Decimal" />
+                <xsl:variable name="maxLatitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:northBoundLatitude/gco:Decimal" />
+                <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>&#160;<xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>&#160;<xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude" />))</nmdc:polygon>
             </nmdc:parameters>
         </nmdc:meta>
     </xsl:template>

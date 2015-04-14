@@ -2,7 +2,10 @@ package no.nmdc.module.transform.config;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.spring.javaconfig.SingleRouteCamelConfiguration;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -12,6 +15,12 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class CamelConfig extends SingleRouteCamelConfiguration implements InitializingBean {
+    /**
+     * This modules properties.
+     */
+    @Autowired
+    @Qualifier("moduleConf")
+    private PropertiesConfiguration moduleConf;
 
     /**
      * The route
@@ -33,12 +42,12 @@ public class CamelConfig extends SingleRouteCamelConfiguration implements Initia
                             .when(header("format").isEqualTo("dif"))
                                 .to("log:end?level=INFO")
                                 .to("xslt:DifToNMDC.xsl?saxon=true")
-                                .to("file:c:\\outbox?charset=utf-8")
+                                .to("file:" + moduleConf.getString("savedir") + "?charset=utf-8")
                                 .to("jms:queue:nmdc/harvest-reindex")
                             .when(header("format").isEqualTo("iso-19139"))
                                 .to("log:end?level=INFO")
                                 .to("xslt:ISO19139ToNMDC.xsl?saxon=true")
-                                .to("file:c:\\outbox?charset=utf-8")
+                                .to("file:" + moduleConf.getString("savedir") + "?charset=utf-8")
                                 .to("jms:queue:nmdc/harvest-reindex")
                             .otherwise()
                                 .to("log:end?level=WARN")
