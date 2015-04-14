@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project>
     <modelVersion>4.0.0</modelVersion>
     <groupId>no.nmdc</groupId>
@@ -21,7 +22,7 @@
     <!-- CI management -->
     <ciManagement>
         <system>Jenkins</system>
-        <url></url>
+        <url/>
     </ciManagement>
 
     <developers>
@@ -60,7 +61,8 @@
         <module>Module-Validate</module>
         <module>Module-Transform</module>
         <module>Module-Reindex</module>
-    </modules>
+    <module>Module-Error</module>
+  </modules>
 
     <dependencies>
         <dependency>
