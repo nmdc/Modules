@@ -16,9 +16,9 @@
         <Variable_Level_1>SALINITY</Variable_Level_1>
     </Parameters>
     <Temporal_Coverage>
-        <Start_Date>1935-12-17</Start_Date>
+        <Start_Date>1935-12-17T00:00:00Z</Start_Date>
     </Temporal_Coverage>
-    <Data_Set_Progress xsi:nil="true"/>
+    <Data_Set_Progress>complete</Data_Set_Progress>
     <Spatial_Coverage>
         <Southernmost_Latitude>68.1167</Southernmost_Latitude>
         <Northernmost_Latitude>68.1167</Northernmost_Latitude>
@@ -29,7 +29,7 @@
         <Minimum_Depth>0</Minimum_Depth>
         <Maximum_Depth>300</Maximum_Depth>
     </Spatial_Coverage>
-    <Data_Set_Language xsi:nil="true"/>
+    <Data_Set_Language>no</Data_Set_Language>
     <Data_Center>
         <Data_Center_Name>
             <Short_Name>Havforskningsinstituttet</Short_Name>

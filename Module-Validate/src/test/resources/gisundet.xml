@@ -62,7 +62,7 @@
         </gmd:CI_ResponsibleParty>
     </gmd:contact>
     <gmd:dateStamp>
-        <gco:DateTime>2014-06-16T10:10:55</gco:DateTime>
+        <gco:DateTime>2014-06-16T10:10:55Z</gco:DateTime>
     </gmd:dateStamp>
     <gmd:metadataStandardName>
         <gco:CharacterString>ISO 19115:2003/19139</gco:CharacterString>
@@ -91,7 +91,7 @@
                     <gmd:date>
                         <gmd:CI_Date>
                             <gmd:date>
-                                <gco:DateTime>2014-05-14T12:00:00</gco:DateTime>
+                                <gco:DateTime>2014-05-14T12:00:00Z</gco:DateTime>
                             </gmd:date>
                             <gmd:dateType>
                                 <gmd:CI_DateTypeCode codeListValue="publication" codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"/>
@@ -256,8 +256,8 @@
                         <gmd:EX_TemporalExtent>
                             <gmd:extent>
                                 <gml:TimePeriod gml:id="d18073e428a1052958">
-                                    <gml:beginPosition>2002-08-21T00:00:00</gml:beginPosition>
-                                    <gml:endPosition>2005-01-08T23:00:00</gml:endPosition>
+                                    <gml:beginPosition>2002-08-21T00:00:00Z</gml:beginPosition>
+                                    <gml:endPosition>2005-01-08T23:00:00Z</gml:endPosition>
                                 </gml:TimePeriod>
                             </gmd:extent>
                         </gmd:EX_TemporalExtent>

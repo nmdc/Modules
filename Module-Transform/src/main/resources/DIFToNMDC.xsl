@@ -14,7 +14,6 @@
                 xmlns:dif="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
 
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" media-type="text/xml"/>
-    <xsl:preserve-space elements="nmdc:polygon" />
 
     <!-- MATCH ROOT DIF -->
     <xsl:template match="dif:DIF">
@@ -29,10 +28,10 @@
                 <xsl:variable name="maxLatitude" select="//dif:Northernmost_Latitude" />
                 <xsl:choose>
                     <xsl:when test="$minLongitude = $maxLongitude and $minLatitude = $maxLatitude">
-                        <nmdc:point><xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude"/></nmdc:point>
+                        <nmdc:point><xsl:value-of select="$minLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$minLatitude"/></nmdc:point>
                     </xsl:when>
                     <xsl:otherwise>
-                        <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>&#160;<xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>&#160;<xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>&#160;<xsl:value-of select="$minLatitude" />))</nmdc:polygon>
+                        <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$minLatitude" />))</nmdc:polygon>
                     </xsl:otherwise>
                 </xsl:choose>
             </nmdc:parameters>

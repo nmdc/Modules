@@ -16,10 +16,9 @@
         <Variable_Level_1>SALINITY</Variable_Level_1>
     </Parameters>
     <Temporal_Coverage>
-        <Start_Date>1942-01-01</Start_Date>
+        <Start_Date>1942-01-01T00:00:00Z</Start_Date>
     </Temporal_Coverage>
-    <Data_Set_Progress>Finished</Data_Set_Progress>
-
+    <Data_Set_Progress>complete</Data_Set_Progress>
     <Spatial_Coverage>
         <Southernmost_Latitude>58.0833</Southernmost_Latitude>
         <Northernmost_Latitude>58.0833</Northernmost_Latitude>

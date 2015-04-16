@@ -1,4 +1,4 @@
-package no.nmdc.module.error.init;
+package no.nmdc.module.reindex.init;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -22,7 +22,7 @@ public class ApplicationInit extends AbstractDispatcherServletInitializer {
     @Override
     protected WebApplicationContext createRootApplicationContext() {
         AnnotationConfigWebApplicationContext cxt = new AnnotationConfigWebApplicationContext();
-        cxt.scan("no.nmdc.module.error.config");
+        cxt.scan("no.nmdc.module.reindex.config");
         return cxt;
     }
 

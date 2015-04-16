@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DIF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/" xsi:schemaLocation="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/ http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/dif_v9.8.4.xsd">
-    <Entry_ID>imr_1423</Entry_ID>
-    <Entry_Title>Fast oseanografisk stasjon - Bud (1946-)</Entry_Title>
+    <Entry_ID>imr_1427</Entry_ID>
+    <Entry_Title>Fast oseanografisk stasjon - Utsira Y (1942-)</Entry_Title>
     <Data_Set_Citation/>
-    <Data_Set_Citation>
-        <Dataset_Creator>IMR</Dataset_Creator>
-        <Dataset_Title>Fast oseanografisk stasjon - Bud (1946-)</Dataset_Title>
-    </Data_Set_Citation>
-<Parameters>
+    <Parameters>
         <Category>EARTH SCIENCE</Category>
         <Topic>OCEANS</Topic>
         <Term>OCEAN TEMPERATURE</Term>
@@ -20,14 +16,14 @@
         <Variable_Level_1>SALINITY</Variable_Level_1>
     </Parameters>
     <Temporal_Coverage>
-        <Start_Date>1946-02-20T00:00:00Z</Start_Date>
+        <Start_Date>1942-02-02T00:00:00Z</Start_Date>
     </Temporal_Coverage>
-    <Data_Set_Progress>Complete</Data_Set_Progress>
+    <Data_Set_Progress>complete</Data_Set_Progress>
     <Spatial_Coverage>
-        <Southernmost_Latitude>62.9333</Southernmost_Latitude>
-        <Northernmost_Latitude>62.9333</Northernmost_Latitude>
-        <Westernmost_Longitude>6.7833</Westernmost_Longitude>
-        <Easternmost_Longitude>6.7833</Easternmost_Longitude>
+        <Southernmost_Latitude>59.3167</Southernmost_Latitude>
+        <Northernmost_Latitude>59.3167</Northernmost_Latitude>
+        <Westernmost_Longitude>4.8</Westernmost_Longitude>
+        <Easternmost_Longitude>4.8</Easternmost_Longitude>
         <Minimum_Altitude/>
         <Maximum_Altitude/>
         <Minimum_Depth>0</Minimum_Depth>
@@ -39,7 +35,7 @@
             <Short_Name>Havforskningsinstituttet</Short_Name>
             <Long_Name>Havforskningsinstituttet</Long_Name>
         </Data_Center_Name>
-        <Data_Set_ID>1423</Data_Set_ID>
+        <Data_Set_ID>1427</Data_Set_ID>
         <Personnel>
             <Role>Datacenter</Role>
             <First_Name>Aave</First_Name>
@@ -57,12 +53,12 @@
             </Contact_Address>
         </Personnel>
     </Data_Center>
-    <Summary>Langtidsserier av oseanografiske stasjoner på faste steder og i standard dyp. Observasjonene utføres av lokale fiskere. Bud er en av for tiden 8 stasjoner i drift. Alle oseanografiske data er bearbeidet og delvis kvalitetskontrollerte. Enkle meteorologiske observasjoner blir normalt tatt (ingen kvalitetskontroll).</Summary>
+    <Summary>Langtidsserier av oseanografiske stasjoner på faste steder og i standard dyp. Observasjonene utføres av lokale fiskere. Utsira Y er en av for tiden 8 stasjoner i drift. Alle oseanografiske data er bearbeidet og delvis kvalitetskontrollerte. Enkle meteorologiske observasjoner blir normalt tatt (ingen kvalitetskontroll).</Summary>
     <Related_URL>
         <URL_Content_Type>
             <Type>GET DATA</Type>
         </URL_Content_Type>
-        <URL>ftp://ftp.nmdc.no/nmdc/IMR/fastestasjoner/Bud/Bud.txt</URL>
+        <URL>ftp://ftp.nmdc.no/nmdc/IMR/fastestasjoner/YUtsira/YUtsira.txt</URL>
         <Description/>
     </Related_URL>
     <IDN_Node>
