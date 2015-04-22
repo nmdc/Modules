@@ -43,8 +43,8 @@ public class CamelConfig extends SingleRouteCamelConfiguration implements Initia
                        .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_INSERT_STREAMING))
                        .setHeader(SolrConstants.FIELD + "id", body())
                        .to("solr:" + moduleConf.getString("solr.url"))
-//                       .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_COMMIT))
-//                       .to("solr://" + moduleConf.getString("solr.url"))
+                       .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_COMMIT))
+                       .to("solr://" + moduleConf.getString("solr.url"))
                        .to("log:end?level=INFO");
             }
         };
