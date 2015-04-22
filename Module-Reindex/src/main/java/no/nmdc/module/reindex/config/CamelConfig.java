@@ -40,11 +40,11 @@ public class CamelConfig extends SingleRouteCamelConfiguration implements Initia
             public void configure() {
                from("jms:queue:nmdc/harvest-reindex")
                        .errorHandler(deadLetterChannel("jms:queue:nmdc/harvest-failure").maximumRedeliveries(3).redeliveryDelay(30000))
-                       .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_INSERT))
+                       .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_INSERT_STREAMING))
                        .setHeader(SolrConstants.FIELD + "id", body())
-                       .to("solr://" + moduleConf.getString("solr.url"))
-                       .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_COMMIT))
-                       .to("solr://" + moduleConf.getString("solr.url"))
+                       .to("solr:" + moduleConf.getString("solr.url"))
+//                       .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_COMMIT))
+//                       .to("solr://" + moduleConf.getString("solr.url"))
                        .to("log:end?level=INFO");
             }
         };
