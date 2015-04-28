@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           xmlns="http://www.nmdc.org/2015/01/Metadata"
+           targetNamespace="http://www.nmdc.org/2015/01/Metadata"
+           xmlns:dif="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
+
+    <xs:import schemaLocation="dif.xsd" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/"/>
+
+    <xs:element name="meta" type="metaType" />
+
+    <xs:complexType name="metaType">
+        <xs:sequence>
+            <xs:element name="nmdc-metadata" type="nmdcMetaType" />
+            <xs:element name="parameters" type="parametersType" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="nmdcMetaType">
+        <xs:sequence>
+            <xs:any />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="parametersType">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="polygon" type="xs:string"/>
+                <xs:element name="point" type="xs:string"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

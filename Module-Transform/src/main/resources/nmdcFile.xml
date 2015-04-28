@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nmdc:meta xmlns:nmdc="http://www.nmdc.org/2015/01/Metadata"
+           xmlns:dif="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.nmdc.org/2015/01/Metadata nmdcmeta.xsd">
+    <nmdc:nmdc-metadata>
+        <DIF xmlns="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/" xmlns:ns2="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
+            <Entry_ID>imr_1420</Entry_ID>
+            <Entry_Title>Fast oseanografisk stasjon - Lista (1942-)</Entry_Title>
+            <Data_Set_Citation/>
+            <Parameters>
+                <Category>EARTH SCIENCE</Category>
+                <Topic>OCEANS</Topic>
+                <Term>OCEAN TEMPERATURE</Term>
+                <Variable_Level_1>WATER TEMPERATURE</Variable_Level_1>
+            </Parameters>
+            <Parameters>
+                <Category>EARTH SCIENCE</Category>
+                <Topic>OCEANS</Topic>
+                <Term>SALINITY/DENSITY</Term>
+                <Variable_Level_1>SALINITY</Variable_Level_1>
+            </Parameters>
+            <Temporal_Coverage>
+                <Start_Date>1942-01-01T00:00:00Z</Start_Date>
+            </Temporal_Coverage>
+            <Data_Set_Progress>complete</Data_Set_Progress>
+            <Spatial_Coverage>
+                <Southernmost_Latitude>58.0833</Southernmost_Latitude>
+                <Northernmost_Latitude>58.0833</Northernmost_Latitude>
+                <Westernmost_Longitude>6.5333</Westernmost_Longitude>
+                <Easternmost_Longitude>6.5333</Easternmost_Longitude>
+                <Minimum_Altitude/>
+                <Maximum_Altitude/>
+                <Minimum_Depth>0</Minimum_Depth>
+                <Maximum_Depth>300</Maximum_Depth>
+            </Spatial_Coverage>
+            <Data_Set_Language>no</Data_Set_Language>
+            <Data_Center>
+                <Data_Center_Name>
+                    <Short_Name>Havforskningsinstituttet</Short_Name>
+                    <Long_Name>Havforskningsinstituttet</Long_Name>
+                </Data_Center_Name>
+                <Data_Set_ID>1420</Data_Set_ID>
+                <Personnel>
+                    <Role>Datacenter</Role>
+                    <First_Name>Aave</First_Name>
+                    <Middle_Name/>
+                    <Last_Name>Lepland</Last_Name>
+                    <Email>aave.lepland@ngu.no</Email>
+                    <Phone/>
+                    <Fax/>
+                    <Contact_Address>
+                        <Address/>
+                        <City/>
+                        <Province_or_State/>
+                        <Postal_Code/>
+                        <Country/>
+                    </Contact_Address>
+                </Personnel>
+            </Data_Center>
+            <Summary>Langtidsserier av oseanografiske stasjoner på faste steder og i standard dyp. Observasjonene utføres av lokale fiskere. Lista er en av for tiden 8 stasjoner i drift. Alle oseanografiske data er bearbeidet og delvis kvalitetskontrollerte. Enkle meteorologiske observasjoner blir normalt tatt (ingen kvalitetskontroll).</Summary>
+            <Related_URL>
+                <URL_Content_Type>
+                    <Type>GET DATA</Type>
+                </URL_Content_Type>
+                <URL>ftp://ftp.nmdc.no/nmdc/IMR/fastestasjoner/Lista/Lista.txt</URL>
+                <Description/>
+            </Related_URL>
+            <IDN_Node>
+                <Short_Name>DOKIPY</Short_Name>
+            </IDN_Node>
+            <Originating_Metadata_Node>NO/NMDC/IMR</Originating_Metadata_Node>
+            <Metadata_Name>CEOS IDN DIF</Metadata_Name>
+            <Metadata_Version>9.7.1</Metadata_Version>
+            <DIF_Creation_Date>2010-08-24</DIF_Creation_Date>
+            <Last_DIF_Revision_Date>2015-02-10</Last_DIF_Revision_Date>
+        </DIF>
+    </nmdc:nmdc-metadata>
+    <nmdc:parameters>
+        <nmdc:point>6.5333 58.0833</nmdc:point>
+    </nmdc:parameters>
+</nmdc:meta>
