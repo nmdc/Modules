@@ -31,10 +31,15 @@ public class ValidateRouteBuilder extends RouteBuilder {
             .add("gmx", "http://www.isotc211.org/2005/gmx")
             .add("srv", "http://www.isotc211.org/2005/srv");
 
+    /**
+     * Error jms queue.
+     */
+    private static final String QUEUE_ERROR = "jms:queue:nmdc/harvest-failure";
+
     @Override
     public void configure() throws Exception {
         from("jms:queue:nmdc/harvest-validate")
-                .errorHandler(deadLetterChannel("jms:queue:nmdc/harvest-failure").maximumRedeliveries(MAXIMUM_REDELIVERIES).redeliveryDelay(REDELIVERY_DELAY))
+                .errorHandler(deadLetterChannel(QUEUE_ERROR).maximumRedeliveries(MAXIMUM_REDELIVERIES).redeliveryDelay(REDELIVERY_DELAY))
                 .to("log:begin?level=INFO&showHeaders=true&showBody=false")
                 .doTry()
                 .choice()
@@ -50,12 +55,12 @@ public class ValidateRouteBuilder extends RouteBuilder {
                 .to("jms:queue:nmdc/harvest-transform")
                 .otherwise()
                 .to("log:end?level=WARN&showHeaders=true&showBody=false")
-                .to("jms:queue:nmdc/harvest-failure")
+                .to(QUEUE_ERROR)
                 .endChoice()
                 .endDoTry()
                 .doCatch(org.apache.camel.ValidationException.class)
                 .to("log:end?level=WARN&showHeaders=true&showBody=false&showCaughtException=true")
-                .to("jms:queue:nmdc/harvest-failure")
+                .to(QUEUE_ERROR)
                 .end();
     }
 

@@ -23,6 +23,16 @@ public class TransformRouteBuilder extends RouteBuilder {
     private static final int MAXIMUM_REDELIVERIES = 3;
 
     /**
+     * Error jms queue.
+     */
+    private static final String QUEUE_ERROR = "jms:queue:nmdc/harvest-failure";
+
+    /**
+     * Charset parameter used in routes.
+     */
+    private static final String CHARSET_PARAMETER = "?charset=utf-8";
+
+    /**
      * This modules properties.
      */
     @Autowired
@@ -32,22 +42,22 @@ public class TransformRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
         from("jms:queue:nmdc/harvest-transform")
-                .errorHandler(deadLetterChannel("jms:queue:nmdc/harvest-failure").maximumRedeliveries(MAXIMUM_REDELIVERIES).redeliveryDelay(REDELIVERY_DELAY))
+                .errorHandler(deadLetterChannel(QUEUE_ERROR).maximumRedeliveries(MAXIMUM_REDELIVERIES).redeliveryDelay(REDELIVERY_DELAY))
                 .choice()
                 .when(header("format").isEqualTo("dif"))
                 .to("log:end?level=INFO&showHeaders=true&showBody=false")
-                .to("file:" + moduleConf.getString("dif.savedir") + "?charset=utf-8")
+                .to("file:" + moduleConf.getString("dif.savedir") + CHARSET_PARAMETER)
                 .to("xslt:DIFToNMDC.xsl?saxon=true")
-                .to("file:" + moduleConf.getString("nmdc.savedir") + "?charset=utf-8")
+                .to("file:" + moduleConf.getString("nmdc.savedir") + CHARSET_PARAMETER)
                 .when(header("format").isEqualTo("iso-19139"))
                 .to("log:end?level=INFO&showHeaders=true&showBody=false")
                 .to("xslt:ISO19139ToDIF.xsl?saxon=true")
-                .to("file:" + moduleConf.getString("dif.savedir") + "?charset=utf-8")
+                .to("file:" + moduleConf.getString("dif.savedir") + CHARSET_PARAMETER)
                 .to("xslt:ISO19139ToNMDC.xsl?saxon=true")
-                .to("file:" + moduleConf.getString("nmdc.savedir") + "?charset=utf-8")
+                .to("file:" + moduleConf.getString("nmdc.savedir") + CHARSET_PARAMETER)
                 .otherwise()
                 .to("log:end?level=WARN&showHeaders=true&showBody=false")
-                .to("jms:queue:nmdc/harvest-failure")
+                .to(QUEUE_ERROR)
                 .endChoice()
                 .end();
     }
