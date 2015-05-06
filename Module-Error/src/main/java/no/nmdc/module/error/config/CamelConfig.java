@@ -17,13 +17,6 @@ import org.springframework.context.annotation.Configuration;
 public class CamelConfig extends SingleRouteCamelConfiguration implements InitializingBean {
 
     /**
-     * Module properties.
-     */
-    @Autowired
-    @Qualifier("moduleConf")
-    private PropertiesConfiguration moduleConf;
-
-    /**
      * The route
      * 1. Get message from the validation jms.
      * 2. Reindex them in the service.

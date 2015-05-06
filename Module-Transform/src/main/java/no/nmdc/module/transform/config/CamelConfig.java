@@ -15,6 +15,17 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class CamelConfig extends SingleRouteCamelConfiguration implements InitializingBean {
+
+    /**
+     * Redelivery delay.
+     */
+    private static final int REDELIVERY_DELAY = 30000;
+
+    /**
+     * Maximum number of redeliveries.
+     */
+    private static final int MAXIMUM_REDELIVERIES = 3;
+
     /**
      * This modules properties.
      */
@@ -37,7 +48,7 @@ public class CamelConfig extends SingleRouteCamelConfiguration implements Initia
             @Override
             public void configure() {
                from("jms:queue:nmdc/harvest-transform")
-                       .errorHandler(deadLetterChannel("jms:queue:nmdc/harvest-failure").maximumRedeliveries(3).redeliveryDelay(30000))
+                       .errorHandler(deadLetterChannel("jms:queue:nmdc/harvest-failure").maximumRedeliveries(MAXIMUM_REDELIVERIES).redeliveryDelay(REDELIVERY_DELAY))
                        .choice()
                             .when(header("format").isEqualTo("dif"))
                                 .to("log:end?level=INFO&showHeaders=true&showBody=false")
