@@ -1,5 +1,6 @@
 package no.nmdc.module.transform.config;
 
+import no.nmdc.module.transform.routebuilder.TransformRouteBuilder;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
@@ -39,4 +40,15 @@ public class ApplicationConfig {
         conf.setReloadingStrategy(new FileChangedReloadingStrategy());
         return conf;
     }
+
+    /**
+     * Create the route builder.
+     *
+     * @return route builder.
+     */
+    @Bean(name = "routeBuilder")
+    public TransformRouteBuilder routeBuilder() {
+        return new TransformRouteBuilder();
+    }
+
 }
