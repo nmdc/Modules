@@ -2,7 +2,6 @@ package no.nmdc.module.validate.config;
 
 import no.nmdc.module.validate.routebuilder.ValidateRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.spring.javaconfig.SingleRouteCamelConfiguration;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
