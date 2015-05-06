@@ -60,7 +60,6 @@
     <modules>
         <module>Module-Validate</module>
         <module>Module-Transform</module>
-        <module>Module-Reindex</module>
     <module>Module-Error</module>
   </modules>
 
