@@ -33,6 +33,11 @@ public class TransformRouteBuilder extends RouteBuilder {
     private static final String CHARSET_PARAMETER = "?charset=utf-8";
 
     /**
+     * File component camel name.
+     */
+    private static final String FILE_CMP_NAME = "file:";
+
+    /**
      * This modules properties.
      */
     @Autowired
@@ -46,15 +51,15 @@ public class TransformRouteBuilder extends RouteBuilder {
                 .choice()
                 .when(header("format").isEqualTo("dif"))
                 .to("log:end?level=INFO&showHeaders=true&showBody=false")
-                .to("file:" + moduleConf.getString("dif.savedir") + CHARSET_PARAMETER)
+                .to(FILE_CMP_NAME + moduleConf.getString("dif.savedir") + CHARSET_PARAMETER)
                 .to("xslt:DIFToNMDC.xsl?saxon=true")
-                .to("file:" + moduleConf.getString("nmdc.savedir") + CHARSET_PARAMETER)
+                .to(FILE_CMP_NAME + moduleConf.getString("nmdc.savedir") + CHARSET_PARAMETER)
                 .when(header("format").isEqualTo("iso-19139"))
                 .to("log:end?level=INFO&showHeaders=true&showBody=false")
                 .to("xslt:ISO19139ToDIF.xsl?saxon=true")
-                .to("file:" + moduleConf.getString("dif.savedir") + CHARSET_PARAMETER)
+                .to(FILE_CMP_NAME + moduleConf.getString("dif.savedir") + CHARSET_PARAMETER)
                 .to("xslt:ISO19139ToNMDC.xsl?saxon=true")
-                .to("file:" + moduleConf.getString("nmdc.savedir") + CHARSET_PARAMETER)
+                .to(FILE_CMP_NAME + moduleConf.getString("nmdc.savedir") + CHARSET_PARAMETER)
                 .otherwise()
                 .to("log:end?level=WARN&showHeaders=true&showBody=false")
                 .to(QUEUE_ERROR)
