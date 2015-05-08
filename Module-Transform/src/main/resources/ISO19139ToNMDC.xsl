@@ -36,25 +36,47 @@
                     </dif:Entry_Title>
 
                     <xsl:for-each select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords">
-                        <dif:Parameters>
-                            <dif:Category>EARTH SCIENCE</dif:Category>
-                            <xsl:variable name="str" as="xs:string" select="./gmd:MD_Keywords/gmd:keyword/gco:CharacterString" />
-                            <xsl:variable name="delim" as="xs:string" select="' > '" />
-                            <dif:Topic><xsl:value-of select="tokenize($str,$delim)[1]" /></dif:Topic>
-                            <dif:Term><xsl:value-of select="tokenize($str,$delim)[2]"/></dif:Term>
-                            <dif:Variable_Level_1><xsl:value-of select="tokenize($str,$delim)[3]"/></dif:Variable_Level_1>
-                        </dif:Parameters>
+                        <xsl:for-each select="./gmd:MD_Keywords">
+                            <xsl:for-each select="./gmd:keyword">
+                                <dif:Parameters>
+                                    <dif:Category>EARTH SCIENCE</dif:Category>
+                                    <xsl:variable name="str" as="xs:string" select="./gco:CharacterString" />
+                                    <xsl:variable name="delim" as="xs:string" select="' | ' " />
+                                    <dif:Topic>
+                                        <xsl:value-of select="tokenize($str,$delim)[1]" />
+                                    </dif:Topic>
+                                    <dif:Term>
+                                        <xsl:value-of select="tokenize($str,$delim)[2]"/>
+                                    </dif:Term>
+                                    <dif:Variable_Level_1>
+                                        <xsl:value-of select="tokenize($str,$delim)[3]"/>
+                                    </dif:Variable_Level_1>
+                                </dif:Parameters>
+                            </xsl:for-each>
+                        </xsl:for-each>
                     </xsl:for-each>
                     <dif:Temporal_Coverage>
-                        <dif:Start_Date><xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:beginPosition" /></dif:Start_Date>
-                        <dif:Stop_Date><xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:endPosition" /></dif:Stop_Date>
+                        <dif:Start_Date>
+                            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:beginPosition" />
+                        </dif:Start_Date>
+                        <dif:Stop_Date>
+                            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:endPosition" />
+                        </dif:Stop_Date>
                     </dif:Temporal_Coverage>
                     <dif:Data_Set_Progress>Finished</dif:Data_Set_Progress>
                     <dif:Spatial_Coverage>
-                        <dif:Southernmost_Latitude><xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:southBoundLatitude/gco:Decimal" /></dif:Southernmost_Latitude>
-                        <dif:Northernmost_Latitude><xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:northBoundLatitude/gco:Decimal" /></dif:Northernmost_Latitude>
-                        <dif:Westernmost_Longitude><xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:westBoundLongitude/gco:Decimal" /></dif:Westernmost_Longitude>
-                        <dif:Easternmost_Longitude><xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:eastBoundLongitude/gco:Decimal" /></dif:Easternmost_Longitude>
+                        <dif:Southernmost_Latitude>
+                            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:southBoundLatitude/gco:Decimal" />
+                        </dif:Southernmost_Latitude>
+                        <dif:Northernmost_Latitude>
+                            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:northBoundLatitude/gco:Decimal" />
+                        </dif:Northernmost_Latitude>
+                        <dif:Westernmost_Longitude>
+                            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:westBoundLongitude/gco:Decimal" />
+                        </dif:Westernmost_Longitude>
+                        <dif:Easternmost_Longitude>
+                            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:eastBoundLongitude/gco:Decimal" />
+                        </dif:Easternmost_Longitude>
                         <dif:Minimum_Altitude />
                         <dif:Maximum_Altitude />
                         <dif:Minimum_Depth />
@@ -73,24 +95,46 @@
                                 <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString" />
                             </dif:Long_Name>
                         </dif:Data_Center_Name>
-                        <dif:Data_Set_ID><xsl:value-of select="gmd:fileIdentifier/gco:CharacterString" /></dif:Data_Set_ID>
+                        <dif:Data_Set_ID>
+                            <xsl:value-of select="gmd:fileIdentifier/gco:CharacterString" />
+                        </dif:Data_Set_ID>
                         <dif:Personel>
                             <dif:Role></dif:Role>
                             <dif:First_Name></dif:First_Name>
                             <dif:Middle_Name></dif:Middle_Name>
-                            <dif:Last_Name><xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:individualName/gco:CharacterString" /></dif:Last_Name>
-                            <dif:Email><xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:electronicMailAddress/gco:CharacterString" /></dif:Email>
-                            <dif:Phone><xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:phone/gmd:CI_Telephone/gmd:voice/gco:CharacterString" /></dif:Phone>
-                            <dif:Fax><xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:phone/gmd:CI_Telephone/gmd:facsimile/gco:CharacterString" /></dif:Fax>
+                            <dif:Last_Name>
+                                <xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:individualName/gco:CharacterString" />
+                            </dif:Last_Name>
+                            <dif:Email>
+                                <xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:electronicMailAddress/gco:CharacterString" />
+                            </dif:Email>
+                            <dif:Phone>
+                                <xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:phone/gmd:CI_Telephone/gmd:voice/gco:CharacterString" />
+                            </dif:Phone>
+                            <dif:Fax>
+                                <xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:phone/gmd:CI_Telephone/gmd:facsimile/gco:CharacterString" />
+                            </dif:Fax>
                             <dif:Contact_Address>
-                                <dif:Address><xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:deliveryPoint/gco:CharacterString" /></dif:Address>
-                                <dif:City><xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:city/gco:CharacterString" /></dif:City>
-                                <dif:Province_or_State><xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:administrativeArea/gco:CharacterString" /></dif:Province_or_State>
-                                <dif:Postal_Code><xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:postalCode/gco:CharacterString" /></dif:Postal_Code>
-                                <dif:Country><xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:country/gco:CharacterString" /></dif:Country>
+                                <dif:Address>
+                                    <xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:deliveryPoint/gco:CharacterString" />
+                                </dif:Address>
+                                <dif:City>
+                                    <xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:city/gco:CharacterString" />
+                                </dif:City>
+                                <dif:Province_or_State>
+                                    <xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:administrativeArea/gco:CharacterString" />
+                                </dif:Province_or_State>
+                                <dif:Postal_Code>
+                                    <xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:postalCode/gco:CharacterString" />
+                                </dif:Postal_Code>
+                                <dif:Country>
+                                    <xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:country/gco:CharacterString" />
+                                </dif:Country>
                             </dif:Contact_Address>
                         </dif:Personel>
-                        <dif:Summary><xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString" /></dif:Summary>
+                        <dif:Summary>
+                            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString" />
+                        </dif:Summary>
                         <dif:IDN_Node>
                             <dif:Short_Name>NMDC</dif:Short_Name>
                         </dif:IDN_Node>
@@ -106,10 +150,24 @@
                 <xsl:variable name="maxLatitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:northBoundLatitude/gco:Decimal" />
                 <xsl:choose>
                     <xsl:when test="$minLongitude = $maxLongitude and $minLatitude = $maxLatitude">
-                        <nmdc:point><xsl:value-of select="$minLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$minLatitude"/></nmdc:point>
+                        <nmdc:point>
+                            <xsl:value-of select="$minLongitude"/>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="$minLatitude"/>
+                        </nmdc:point>
                     </xsl:when>
                     <xsl:otherwise>
-                        <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$minLatitude" />))</nmdc:polygon>
+                        <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude"/>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="$minLatitude" />))</nmdc:polygon>
                     </xsl:otherwise>
                 </xsl:choose>
             </nmdc:parameters>

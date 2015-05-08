@@ -34,10 +34,12 @@
             </dif:Entry_Title>
 
             <xsl:for-each select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords">
+                  <xsl:for-each select="./gmd:MD_Keywords">
+                      <xsl:for-each select="./gmd:keyword">
                 <dif:Parameters>
                     <dif:Category>EARTH SCIENCE</dif:Category>
-                    <xsl:variable name="str" as="xs:string" select="./gmd:MD_Keywords/gmd:keyword/gco:CharacterString" />
-                    <xsl:variable name="delim" as="xs:string" select="' > '" />
+                    <xsl:variable name="str" as="xs:string" select="./gco:CharacterString" />
+                    <xsl:variable name="delim" as="xs:string" select="' | ' " />
                     <dif:Topic>
                         <xsl:value-of select="tokenize($str,$delim)[1]" />
                     </dif:Topic>
@@ -48,6 +50,8 @@
                         <xsl:value-of select="tokenize($str,$delim)[3]"/>
                     </dif:Variable_Level_1>
                 </dif:Parameters>
+</xsl:for-each>
+</xsl:for-each>
             </xsl:for-each>
             <dif:Temporal_Coverage>
                 <dif:Start_Date>
