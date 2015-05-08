@@ -22,10 +22,10 @@
                 <xsl:copy-of select="." />
             </nmdc:nmdc-metadata>
             <nmdc:parameters>
-                <xsl:variable name="minLongitude" select="//dif:Easternmost_Longitude" />
-                <xsl:variable name="maxLongitude" select="//dif:Westernmost_Longitude" />
-                <xsl:variable name="minLatitude" select="//dif:Southernmost_Latitude" />
-                <xsl:variable name="maxLatitude" select="//dif:Northernmost_Latitude" />
+                <xsl:variable name="minLongitude" select="min(/dif:DIF/*/dif:Easternmost_Longitude)" />
+                <xsl:variable name="maxLongitude" select="max(/dif:DIF/*/dif:Westernmost_Longitude)" />
+                <xsl:variable name="minLatitude" select="min(/dif:DIF/*/dif:Southernmost_Latitude)" />
+                <xsl:variable name="maxLatitude" select="max(/dif:DIF/*/dif:Northernmost_Latitude)" />
                 <xsl:choose>
                     <xsl:when test="$minLongitude = $maxLongitude and $minLatitude = $maxLatitude">
                         <nmdc:point><xsl:value-of select="$minLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$minLatitude"/></nmdc:point>
