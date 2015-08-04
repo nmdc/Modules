@@ -18,8 +18,7 @@
                 xmlns:gco="http://www.isotc211.org/2005/gco"
                 xmlns:dif="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
-                xmlns:gml="http://www.opengis.net/gml"
->
+                xmlns:gml="http://www.opengis.net/gml">
     <xsl:strip-space elements="nmdc:polygon"/>
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" media-type="text/xml"/>
 
@@ -40,16 +39,20 @@
                             <xsl:for-each select="./gmd:keyword">
                                 <dif:Parameters>
                                     <dif:Category>EARTH SCIENCE</dif:Category>
+                                    <xsl:variable name="GreaterThan" select="'&#x3E;'"/>
                                     <xsl:variable name="str" as="xs:string" select="./gco:CharacterString" />
-                                    <xsl:variable name="delim" as="xs:string" select="' | ' " />
+                                    <xsl:variable name="delim" as="xs:string" select="'\|' " />
+                            <xsl:if test="contains(., $GreaterThan)" >
+                                <xsl:variable name="delim" as="xs:string" select="'>'" />
+                            </xsl:if>
                                     <dif:Topic>
-                                        <xsl:value-of select="tokenize($str,$delim)[1]" />
+                                        <xsl:value-of select="replace(upper-case(normalize-space(tokenize($str,$delim)[1])), $delim, '')" />
                                     </dif:Topic>
                                     <dif:Term>
-                                        <xsl:value-of select="tokenize($str,$delim)[2]"/>
+                                        <xsl:value-of select="replace(upper-case(normalize-space(tokenize($str,$delim)[2])), $delim, '')" />
                                     </dif:Term>
                                     <dif:Variable_Level_1>
-                                        <xsl:value-of select="tokenize($str,$delim)[3]"/>
+                                        <xsl:value-of select="replace(upper-case(normalize-space(tokenize($str,$delim)[3])), $delim, '')" />
                                     </dif:Variable_Level_1>
                                 </dif:Parameters>
                             </xsl:for-each>
@@ -149,14 +152,7 @@
                 <xsl:variable name="minLatitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:southBoundLatitude/gco:Decimal" />
                 <xsl:variable name="maxLatitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:northBoundLatitude/gco:Decimal" />
                 <xsl:choose>
-                    <xsl:when test="$minLongitude = $maxLongitude and $minLatitude = $maxLatitude">
-                        <nmdc:point>
-                            <xsl:value-of select="$minLongitude"/>
-                            <xsl:text> </xsl:text>
-                            <xsl:value-of select="$minLatitude"/>
-                        </nmdc:point>
-                    </xsl:when>
-                    <xsl:otherwise>
+                    <xsl:when test="abs($minLongitude - $maxLongitude) > 0.5 and abs($minLatitude - $maxLatitude) > 0.5">
                         <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude"/>
                             <xsl:text> </xsl:text>
                             <xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>
@@ -168,6 +164,13 @@
                             <xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>
                             <xsl:text> </xsl:text>
                             <xsl:value-of select="$minLatitude" />))</nmdc:polygon>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <nmdc:point>
+                            <xsl:value-of select="$minLongitude"/>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="$minLatitude"/>
+                        </nmdc:point>
                     </xsl:otherwise>
                 </xsl:choose>
             </nmdc:parameters>

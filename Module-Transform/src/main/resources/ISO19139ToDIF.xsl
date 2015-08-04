@@ -18,8 +18,7 @@
                 xmlns:gco="http://www.isotc211.org/2005/gco"
                 xmlns:dif="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
-                xmlns:gml="http://www.opengis.net/gml"
->
+                xmlns:gml="http://www.opengis.net/gml">
     <xsl:strip-space elements="nmdc:polygon"/>
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" media-type="text/xml"/>
 
@@ -34,24 +33,27 @@
             </dif:Entry_Title>
 
             <xsl:for-each select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords">
-                  <xsl:for-each select="./gmd:MD_Keywords">
-                      <xsl:for-each select="./gmd:keyword">
-                <dif:Parameters>
-                    <dif:Category>EARTH SCIENCE</dif:Category>
-                    <xsl:variable name="str" as="xs:string" select="./gco:CharacterString" />
-                    <xsl:variable name="delim" as="xs:string" select="' | ' " />
-                    <dif:Topic>
-                        <xsl:value-of select="tokenize($str,$delim)[1]" />
-                    </dif:Topic>
-                    <dif:Term>
-                        <xsl:value-of select="tokenize($str,$delim)[2]"/>
-                    </dif:Term>
-                    <dif:Variable_Level_1>
-                        <xsl:value-of select="tokenize($str,$delim)[3]"/>
-                    </dif:Variable_Level_1>
-                </dif:Parameters>
-</xsl:for-each>
-</xsl:for-each>
+                <xsl:for-each select="./gmd:MD_Keywords">
+                    <xsl:for-each select="./gmd:keyword">
+                        <dif:Parameters>
+                            <dif:Category>EARTH SCIENCE</dif:Category>
+                            <xsl:variable name="str" as="xs:string" select="./gco:CharacterString" />
+                            <xsl:variable name="delim" as="xs:string" select="'\| '" />
+                            <xsl:if test="contains(., '>')" >
+                                <xsl:variable name="delim" as="xs:string" select="'>'" />
+                            </xsl:if>
+                            <dif:Topic>
+                                <xsl:value-of select="upper-case(normalize-space(tokenize($str,$delim)[1]))" />
+                            </dif:Topic>
+                            <dif:Term>
+                                <xsl:value-of select="upper-case(normalize-space(tokenize($str,$delim)[2]))"/>
+                            </dif:Term>
+                            <dif:Variable_Level_1>
+                                <xsl:value-of select="upper-case(normalize-space(tokenize($str,$delim)[3]))"/>
+                            </dif:Variable_Level_1>
+                        </dif:Parameters>
+                    </xsl:for-each>
+                </xsl:for-each>
             </xsl:for-each>
             <dif:Temporal_Coverage>
                 <dif:Start_Date>
