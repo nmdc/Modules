@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <camel.version>2.15.1</camel.version>
+        <camel.version>2.15.2</camel.version>
         <activemq.version>5.11.1</activemq.version>
         <xbean.version>4.1</xbean.version>
     </properties>

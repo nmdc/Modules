@@ -19,7 +19,7 @@
                 xmlns:dif="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:gml="http://www.opengis.net/gml">
-    <xsl:strip-space elements="nmdc:polygon"/>
+    <xsl:strip-space elements="*"/>
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" media-type="text/xml"/>
 
     <!-- MATCH ROOT DIF -->
@@ -46,13 +46,13 @@
                                 <xsl:variable name="delim" as="xs:string" select="'>'" />
                             </xsl:if>
                                     <dif:Topic>
-                                        <xsl:value-of select="replace(upper-case(normalize-space(tokenize($str,$delim)[1])), $delim, '')" />
+                                        <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[1])), $delim, ''))" />
                                     </dif:Topic>
                                     <dif:Term>
-                                        <xsl:value-of select="replace(upper-case(normalize-space(tokenize($str,$delim)[2])), $delim, '')" />
+                                        <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[2])), $delim, ''))" />
                                     </dif:Term>
                                     <dif:Variable_Level_1>
-                                        <xsl:value-of select="replace(upper-case(normalize-space(tokenize($str,$delim)[3])), $delim, '')" />
+                                        <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[3])), $delim, ''))" />
                                     </dif:Variable_Level_1>
                                 </dif:Parameters>
                             </xsl:for-each>
@@ -89,6 +89,9 @@
                         <xsl:if test="gmd:language/gmd:LanguageCode/@codeListValue = 'eng'">en</xsl:if>
                         <xsl:if test="gmd:language/gmd:LanguageCode/@codeListValue = 'nor'">no</xsl:if>
                     </dif:Data_Set_Language>
+                    <dif:Originating_Center>
+                        <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString" />
+                    </dif:Originating_Center>
                     <dif:Data_Center>
                         <dif:Data_Center_Name>
                             <dif:Short_Name>
@@ -152,7 +155,7 @@
                 <xsl:variable name="minLatitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:southBoundLatitude/gco:Decimal" />
                 <xsl:variable name="maxLatitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:northBoundLatitude/gco:Decimal" />
                 <xsl:choose>
-                    <xsl:when test="abs($minLongitude - $maxLongitude) > 0.5 and abs($minLatitude - $maxLatitude) > 0.5">
+                    <xsl:when test="abs($minLongitude - $maxLongitude) &gt; 0.1 and abs($minLatitude - $maxLatitude) &gt; 0.1">
                         <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude"/>
                             <xsl:text> </xsl:text>
                             <xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>

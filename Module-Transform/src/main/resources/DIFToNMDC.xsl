@@ -14,12 +14,45 @@
                 xmlns:dif="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
 
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" media-type="text/xml"/>
+    <xsl:strip-space elements="*" />
+
+    <xsl:template match="dif:Category">
+                <xsl:copy>
+        <xsl:value-of select="normalize-space(.)" />
+                </xsl:copy>
+    </xsl:template>
+
+    <xsl:template match="dif:Topic">
+                <xsl:copy>
+        <xsl:value-of select="normalize-space(.)" />
+                </xsl:copy>
+    </xsl:template>
+
+    <xsl:template match="dif:Term">
+                <xsl:copy>
+        <xsl:value-of select="normalize-space(.)" />
+                </xsl:copy>
+    </xsl:template>
+
+    <xsl:template match="dif:Variable_Level_1">
+                <xsl:copy>
+        <xsl:value-of select="normalize-space(.)" />
+                </xsl:copy>
+    </xsl:template>
+
+    <xsl:template match="dif:*">
+                <xsl:copy>
+                    <xsl:apply-templates />
+                </xsl:copy>
+    </xsl:template>
 
     <!-- MATCH ROOT DIF -->
-    <xsl:template match="dif:DIF">
+    <xsl:template match="/">
         <nmdc:meta>
             <nmdc:nmdc-metadata>
-                <xsl:copy-of select="." />
+                <xsl:copy>
+                    <xsl:apply-templates select="dif:*"/>
+                </xsl:copy>
             </nmdc:nmdc-metadata>
             <nmdc:parameters>
                 <xsl:variable name="minLongitude" select="min(/dif:DIF/*/dif:Easternmost_Longitude)" />
@@ -27,7 +60,7 @@
                 <xsl:variable name="minLatitude" select="min(/dif:DIF/*/dif:Southernmost_Latitude)" />
                 <xsl:variable name="maxLatitude" select="max(/dif:DIF/*/dif:Northernmost_Latitude)" />
                 <xsl:choose>
-                    <xsl:when test="abs($minLongitude - $maxLongitude) > 0.5 and abs($minLatitude - $maxLatitude) > 0.5">
+                    <xsl:when test="abs($minLongitude - $maxLongitude) &lt; 0.1 or abs($minLatitude - $maxLatitude) &lt; 0.1">
                         <nmdc:point><xsl:value-of select="$minLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$minLatitude"/></nmdc:point>
                     </xsl:when>
                     <xsl:otherwise>
@@ -38,5 +71,6 @@
         </nmdc:meta>
     </xsl:template>
     <!-- ====================================================== -->
+
 
 </xsl:stylesheet>

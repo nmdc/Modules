@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DIF xmlns="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
+    <Entry_ID>MGMarinBiotopSorTroms</Entry_ID>
+    <Entry_Title>Marine biotoper i Sør-Troms</Entry_Title>
+    <Data_Set_Citation>
+        <Dataset_Creator>Dolan, M.F.J. et al.</Dataset_Creator>
+        <Dataset_Title>Marine grunnkart i Sør-Troms: Rapport om biotopmodellering</Dataset_Title>
+        <Dataset_Series_Name>NGU Rapport</Dataset_Series_Name>
+        <Dataset_Release_Date>2012-12-17T00:00:00:00Z</Dataset_Release_Date>
+        <Dataset_Release_Place>Trondheim</Dataset_Release_Place>
+        <Dataset_Publisher>NGU</Dataset_Publisher>
+        <Version/>
+        <Issue_Identification>NGU Rapport 2012.070</Issue_Identification>
+        <Data_Presentation_Form>pdf</Data_Presentation_Form>
+        <Other_Citation_Details>in Norwegian</Other_Citation_Details>
+        <Online_Resource>http://www.ngu.no/upload/Publikasjoner/Rapporter/2012/2012_070.pdf</Online_Resource>
+    </Data_Set_Citation>
+    <Personnel>
+        <Role>Technical Contact</Role>
+        <First_Name>Aave</First_Name>
+        <Middle_Name/>
+        <Last_Name>Lepland</Last_Name>
+        <Email>aave.lepland@ngu.no</Email>
+        <Phone/>
+        <Fax/>
+        <Contact_Address>
+            <City/>
+            <Province_or_State/>
+            <Postal_Code/>
+            <Country/>
+        </Contact_Address>
+    </Personnel>
+    <Personnel>
+        <Role>Investigator</Role>
+        <First_Name>Sigrid</First_Name>
+        <Middle_Name/>
+        <Last_Name>Elvenes</Last_Name>
+        <Email>sigrid.elvenes@ngu.no</Email>
+        <Phone>+47 73904185</Phone>
+        <Fax>+47 73921620</Fax>
+        <Contact_Address>
+            <City>Trondheim</City>
+            <Province_or_State/>
+            <Postal_Code>7491</Postal_Code>
+            <Country>Norway</Country>
+        </Contact_Address>
+    </Personnel>
+    <Parameters>
+        <Category>EARTH SCIENCE </Category>
+        <Topic> BIOSPHERE </Topic>
+        <Term> AQUATIC ECOSYSTEMS </Term>
+        <Variable_Level_1> MARINE HABITAT</Variable_Level_1>
+    </Parameters>
+    <Parameters>
+        <Category>EARTH SCIENCE </Category>
+        <Topic> OCEANS </Topic>
+        <Term> MARINE SEDIMENTS</Term>
+    </Parameters>
+    <Parameters>
+        <Category>EARTH SCIENCE </Category>
+        <Topic> OCEANS </Topic>
+        <Term> COASTAL PROCESSES </Term>
+        <Variable_Level_1> FJORDS</Variable_Level_1>
+    </Parameters>
+    <Parameters>
+        <Category>EARTH SCIENCE </Category>
+        <Topic> OCEANS </Topic>
+        <Term> OCEAN TEMPERATURE </Term>
+        <Variable_Level_1> WATER TEMPERATURE</Variable_Level_1>
+    </Parameters>
+    <ISO_Topic_Category>Biota</ISO_Topic_Category>
+    <ISO_Topic_Category>Environment</ISO_Topic_Category>
+    <ISO_Topic_Category>Geoscientific Information</ISO_Topic_Category>
+    <ISO_Topic_Category>Oceans</ISO_Topic_Category>
+    <Keyword>terrengform</Keyword>
+    <Keyword>landform</Keyword>
+    <Keyword>sediment</Keyword>
+    <Keyword>israndavsetning</Keyword>
+    <Keyword>glasitektonisk</Keyword>
+    <Keyword>sedimentbølge</Keyword>
+    <Keyword>sedimentbølge</Keyword>
+    <Keyword>sedimentbølge</Keyword>
+    <Sensor_Name>
+        <Short_Name>ACOUSTIC SOUNDERS</Short_Name>
+        <Long_Name/>
+    </Sensor_Name>
+    <Temporal_Coverage>
+        <Start_Date>2012-06-14T22:00Z</Start_Date>
+    </Temporal_Coverage>
+    <Data_Set_Progress>Complete</Data_Set_Progress>
+    <Spatial_Coverage>
+        <Southernmost_Latitude>68.52</Southernmost_Latitude>
+        <Northernmost_Latitude>69.68</Northernmost_Latitude>
+        <Westernmost_Longitude>15.7</Westernmost_Longitude>
+        <Easternmost_Longitude>17.91</Easternmost_Longitude>
+        <Minimum_Altitude/>
+        <Maximum_Altitude/>
+        <Minimum_Depth/>
+        <Maximum_Depth/>
+    </Spatial_Coverage>
+    <Location>
+        <Location_Category>Ocean </Location_Category>
+        <Location_Type> Atlantic Ocean </Location_Type>
+        <Location_Subregion1> North Atlantic Ocean </Location_Subregion1>
+        <Location_Subregion2> Norwegian Sea</Location_Subregion2>
+        <Detailed_Location>Andfjorden</Detailed_Location>
+    </Location>
+    <Project>
+        <Short_Name>Astafjordprosjektet</Short_Name>
+        <Long_Name>Marine grunnkart i Sør-Troms</Long_Name>
+    </Project>
+    <Access_Constraints>distribution cost charge</Access_Constraints>
+    <Originating_Center>Geological Survey of Norway, Norway</Originating_Center>
+    <Data_Center>
+        <Data_Center_Name>
+            <Short_Name>NO/NGU</Short_Name>
+            <Long_Name>Geological Survey of Norway, Norway</Long_Name>
+        </Data_Center_Name>
+        <Data_Center_URL>http://www.ngu.no</Data_Center_URL>
+        <Personnel>
+            <Role>Datacenter</Role>
+            <First_Name>Aave</First_Name>
+            <Middle_Name/>
+            <Last_Name>Lepland</Last_Name>
+            <Email>aave.lepland@ngu.no</Email>
+            <Phone/>
+            <Fax/>
+            <Contact_Address>
+                <City/>
+                <Province_or_State/>
+                <Postal_Code/>
+                <Country/>
+            </Contact_Address>
+        </Personnel>
+    </Data_Center>
+    <Multimedia_Sample>
+        <File/>
+        <URL>http://www.mareano.no/kart?language=no&amp;bbox=562633.7,7858660.7,684079.8,7931136.6&amp;KARTBILDE_ID=4</URL>
+        <Format/>
+        <Caption>Landformer på Tromsøflaket</Caption>
+        <Description/>
+    </Multimedia_Sample>
+    <Reference/>
+    <Summary>Biotoper i Sør-Troms. En biotop er et område med en bestemt sammensetning av plante- og dyrearter som lever under ensartede miljøforhold. Datasettet er blitt laget av NGU i samarbeid med 12 kommuner i Sør-Troms, og er en av mange produkter av Astafjordprosjektet.  Klassifiseringen er basert på Naturtyper i Norges (NiN) retningslinjer for klassifisering på natursystem-nivå (Halvorsen et al., 2009).</Summary>
+    <Related_URL>
+        <URL_Content_Type>
+            <Type>GET DATA</Type>
+        </URL_Content_Type>
+        <URL>ftp://ftp.ngu.no/pub/NMDC/BiotopSorTroms.zip</URL>
+        <Description>Last ned shapefil og tilhørende lyrfil fra ftp-server</Description>
+    </Related_URL>
+    <Related_URL>
+        <URL_Content_Type>
+            <Type>GET SERVICE </Type>
+            <Subtype>ACCESS MAP VIEWER</Subtype>
+        </URL_Content_Type>
+        <URL>http://www.mareano.no/kart/mareano.html?language=no#maps/649</URL>
+        <Description>Marine biotoper i Sør-Troms vist i MAREANO kartapplikasjon</Description>
+    </Related_URL>
+    <Related_URL>
+        <URL_Content_Type>
+            <Type>GET SERVICE </Type>
+            <Subtype>GET MAP SERVICE</Subtype>
+        </URL_Content_Type>
+        <URL>http://geo.ngu.no/mapserver/MarineGrunnkartWMS?</URL>
+        <Description>MarineGrunnkartWMS - karttjeneste fra NGU som viser Biotoper i Sør-Troms</Description>
+    </Related_URL>
+    <Originating_Metadata_Node>Norwegian Marine Datacentre</Originating_Metadata_Node>
+    <Metadata_Name>CEOS IDN DIF</Metadata_Name>
+    <Metadata_Version>9.7.1</Metadata_Version>
+    <DIF_Creation_Date>2010-09-20T00:00:00:00Z</DIF_Creation_Date>
+</DIF>
