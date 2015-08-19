@@ -40,10 +40,22 @@
                 </xsl:copy>
     </xsl:template>
 
+    <xsl:template match="dif:Data_Center[1]">
+        <xsl:copy>
+            <xsl:copy-of select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
+
+    <xsl:template match="dif:DIF">
+        <xsl:copy>
+            <xsl:apply-templates select="@* | node()" />
+        </xsl:copy>
+    </xsl:template>
+
     <xsl:template match="dif:*">
-                <xsl:copy>
-                    <xsl:apply-templates />
-                </xsl:copy>
+        <xsl:copy>
+            <xsl:apply-templates select="@* | node()" />
+        </xsl:copy>
     </xsl:template>
 
     <!-- MATCH ROOT DIF -->
@@ -59,6 +71,7 @@
                 <xsl:variable name="maxLongitude" select="max(/dif:DIF/*/dif:Westernmost_Longitude)" />
                 <xsl:variable name="minLatitude" select="min(/dif:DIF/*/dif:Southernmost_Latitude)" />
                 <xsl:variable name="maxLatitude" select="max(/dif:DIF/*/dif:Northernmost_Latitude)" />
+                <xsl:if test="($minLongitude) and ($maxLongitude) and ($minLatitude) and ($maxLatitude)">
                 <xsl:choose>
                     <xsl:when test="abs($minLongitude - $maxLongitude) &lt; 0.1 or abs($minLatitude - $maxLatitude) &lt; 0.1">
                         <nmdc:point><xsl:value-of select="$minLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$minLatitude"/></nmdc:point>
@@ -67,10 +80,9 @@
                         <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/><xsl:text> </xsl:text><xsl:value-of select="$minLatitude" />))</nmdc:polygon>
                     </xsl:otherwise>
                 </xsl:choose>
+                </xsl:if>
             </nmdc:parameters>
         </nmdc:meta>
     </xsl:template>
-    <!-- ====================================================== -->
-
 
 </xsl:stylesheet>

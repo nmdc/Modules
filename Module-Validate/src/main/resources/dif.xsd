@@ -10,7 +10,7 @@
          <xs:element ref="Data_Set_Citation" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element ref="Personnel" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element ref="Discipline" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element ref="Parameters" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element ref="Parameters" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element ref="ISO_Topic_Category" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element ref="Keyword" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element ref="Sensor_Name" minOccurs="0" maxOccurs="unbounded"/>
@@ -27,7 +27,7 @@
          <xs:element ref="Use_Constraints" minOccurs="0" maxOccurs="1"/>
          <xs:element ref="Data_Set_Language" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element ref="Originating_Center" minOccurs="0" maxOccurs="1"/>
-         <xs:element ref="Data_Center" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element ref="Data_Center" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element ref="Distribution" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element ref="Multimedia_Sample" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element ref="Reference" minOccurs="0" maxOccurs="unbounded"/>
@@ -331,7 +331,7 @@
          <xs:element ref="Data_Center_Name" minOccurs="1" maxOccurs="1"/>
          <xs:element ref="Data_Center_URL" minOccurs="0" maxOccurs="1"/>
          <xs:element ref="Data_Set_ID" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element ref="Personnel" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element ref="Personnel" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
    </xs:complexType>
 </xs:element>
@@ -427,7 +427,7 @@
    <xs:complexType>
       <xs:sequence>
          <xs:element ref="URL_Content_Type" minOccurs="0" maxOccurs="1"/>
-         <xs:element ref="URL" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element ref="URL" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element ref="Description" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
    </xs:complexType>

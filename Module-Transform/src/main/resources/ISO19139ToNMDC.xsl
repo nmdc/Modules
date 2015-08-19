@@ -162,6 +162,8 @@
                 <xsl:variable name="maxLongitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:eastBoundLongitude/gco:Decimal" />
                 <xsl:variable name="minLatitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:southBoundLatitude/gco:Decimal" />
                 <xsl:variable name="maxLatitude" select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox/gmd:northBoundLatitude/gco:Decimal" />
+                <xsl:if test="($minLongitude) and ($maxLongitude) and ($minLatitude) and ($maxLatitude)">
+
                 <xsl:choose>
                     <xsl:when test="abs($minLongitude - $maxLongitude) &gt; 0.1 and abs($minLatitude - $maxLatitude) &gt; 0.1">
                         <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude"/>
@@ -184,6 +186,7 @@
                         </nmdc:point>
                     </xsl:otherwise>
                 </xsl:choose>
+                </xsl:if>
             </nmdc:parameters>
         </nmdc:meta>
     </xsl:template>

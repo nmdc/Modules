@@ -36,7 +36,6 @@
         <Minimum_Depth>0</Minimum_Depth>
         <Maximum_Depth>300</Maximum_Depth>
     </Spatial_Coverage>
-    <Originating_Center>Institute of Marine Research, Bergen, Norway</Originating_Center>
     <Data_Center>
         <Data_Center_Name>
             <Short_Name>Havforskningsinstituttet</Short_Name>
