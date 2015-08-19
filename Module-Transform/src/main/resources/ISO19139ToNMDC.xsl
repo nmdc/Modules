@@ -138,6 +138,15 @@
                                 </dif:Country>
                             </dif:Contact_Address>
                         </dif:Personel>
+                    </dif:Data_Center>
+                    <xsl:for-each select="//gmd:onLine">
+                        <dif:Related_URL>
+                            <dif:URL_Content_Type>
+                                <dif:Type><xsl:value-of select=".//gmd:name/gco:CharacterString" /></dif:Type>
+                            </dif:URL_Content_Type>
+                            <dif:URL><xsl:value-of select=".//gmd:URL" /></dif:URL>
+                        </dif:Related_URL>
+                    </xsl:for-each>
                         <dif:Summary>
                             <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString" />
                         </dif:Summary>
@@ -146,7 +155,6 @@
                         </dif:IDN_Node>
                         <dif:Metadata_Name>CEOS IDN DIF</dif:Metadata_Name>
                         <dif:Metadata_Version>9.7.1</dif:Metadata_Version>
-                    </dif:Data_Center>
                 </dif:DIF>
             </nmdc:nmdc-metadata>
             <nmdc:parameters>
