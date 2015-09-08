@@ -18,36 +18,36 @@
 
     <xsl:template match="dif:URL_Content_Type">
         <xsl:copy>
-<xsl:element name="Type" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
-<xsl:value-of select="//dif:Type" />
-</xsl:element>
-<xsl:element name="SubType" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
-           <xsl:value-of select="//dif:SubType" />
-</xsl:element>
+            <xsl:element name="Type" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
+                <xsl:value-of select="//dif:Type" />
+            </xsl:element>
+            <xsl:element name="SubType" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
+                <xsl:value-of select="//dif:SubType" />
+            </xsl:element>
         </xsl:copy>
     </xsl:template>
 
-    <xsl:template match="dif:Category">
+    <xsl:template match="dif:Parameters">
         <xsl:copy>
-            <xsl:value-of select="normalize-space(.)" />
-        </xsl:copy>
-    </xsl:template>
+            <xsl:element name="Category" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
+                <xsl:value-of select="normalize-space(./dif:Category)" />
+            </xsl:element>
+            <xsl:element name="Topic" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
+                <xsl:value-of select="normalize-space(./dif:Topic)" />
+            </xsl:element>
+            <xsl:element name="Term" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
+                <xsl:value-of select="normalize-space(./dif:Term)" />
+            </xsl:element>
+            <xsl:element name="Variable_Level_1" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
+                <xsl:value-of select="normalize-space(./dif:Variable_Level_1)" />
+            </xsl:element>
+            <xsl:element name="Variable_Level_2" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
+                <xsl:value-of select="normalize-space(./dif:Variable_Level_2)" />
+            </xsl:element>
+            <xsl:element name="Variable_Level_3" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
+                <xsl:value-of select="normalize-space(./dif:Variable_Level_3)" />
+            </xsl:element>
 
-    <xsl:template match="dif:Topic">
-        <xsl:copy>
-            <xsl:value-of select="normalize-space(.)" />
-        </xsl:copy>
-    </xsl:template>
-
-    <xsl:template match="dif:Term">
-        <xsl:copy>
-            <xsl:value-of select="normalize-space(.)" />
-        </xsl:copy>
-    </xsl:template>
-
-    <xsl:template match="dif:Variable_Level_1">
-        <xsl:copy>
-            <xsl:value-of select="normalize-space(.)" />
         </xsl:copy>
     </xsl:template>
 
