@@ -39,8 +39,12 @@
                             <xsl:for-each select="./gmd:keyword">
                                 <dif:Parameters>
                                     <dif:Category>EARTH SCIENCE</dif:Category>
+                                    <xsl:variable name="GreaterThan" select="'&#x3E;'"/>
                                     <xsl:variable name="str" as="xs:string" select="./gco:CharacterString" />
-                                    <xsl:variable name="delim" as="xs:string" select="'&gt;'" />
+                                    <xsl:variable name="delim" as="xs:string" select="'\|' " />
+                            <xsl:if test="contains(., $GreaterThan)" >
+                                <xsl:variable name="delim" as="xs:string" select="'>'" />
+                            </xsl:if>
                                     <dif:Topic>
                                         <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[1])), $delim, ''))" />
                                     </dif:Topic>
