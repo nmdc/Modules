@@ -63,7 +63,6 @@
     </Multimedia_Sample>
     <Reference/>
     <Summary>Langtidsserier av oseanografiske stasjoner på faste steder og i standard dyp. Observasjonene utføres av lokale fiskere. Lista er en av for tiden 8 stasjoner i drift. Alle oseanografiske data er bearbeidet og delvis kvalitetskontrollerte. Enkle meteorologiske observasjoner blir normalt tatt (ingen kvalitetskontroll).</Summary>
-    <xsl:for-each select="">
         <Related_URL>
             <URL_Content_Type>
                 <Type>GET DATA</Type>
@@ -72,7 +71,6 @@
             <URL>ftp://ftp.nmdc.no/nmdc/IMR/fastestasjoner/Lista/Lista.txt</URL>
             <Description/>
         </Related_URL>
-    </xsl:for-each>
     <Originating_Metadata_Node>NO/NMDC/IMR</Originating_Metadata_Node>
     <Metadata_Name>CEOS IDN DIF</Metadata_Name>
     <Metadata_Version>9.7.1</Metadata_Version>

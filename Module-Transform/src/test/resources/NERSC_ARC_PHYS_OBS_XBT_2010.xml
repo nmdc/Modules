@@ -141,7 +141,7 @@
               </gmd:citation>
               <gmd:abstract>
                 <gco:CharacterString>XBT profiles of temperature, pressure and sound speed in the Fram Strait from KV Svalbard in September 2010.
-There are a total of 41 profiles and 71422 observations. 
+There are a total of 41 profiles and 71422 observations.
 Two different XBT probes were used: T5 and T7, see http://www.sippican.com/contentmgr/showdetails.php/id/312 for more info on the probes.</gco:CharacterString>
               </gmd:abstract>
               <gmd:pointOfContact>
@@ -203,13 +203,13 @@ Two different XBT probes were used: T5 and T7, see http://www.sippican.com/conte
               <gmd:descriptiveKeywords>
                 <gmd:MD_Keywords>
                   <gmd:keyword>
-                    <gco:CharacterString>OCEANS | OCEAN TEMPERATURE | WATER TEMPERATURE |  |</gco:CharacterString>
+                    <gco:CharacterString>OCEANS > OCEAN TEMPERATURE > WATER TEMPERATURE >  ></gco:CharacterString>
                   </gmd:keyword>
                   <gmd:keyword>
-                    <gco:CharacterString>OCEANS | OCEAN PRESSURE | WATER PRESSURE |  |</gco:CharacterString>
+                    <gco:CharacterString>OCEANS > OCEAN PRESSURE > WATER PRESSURE >  ></gco:CharacterString>
                   </gmd:keyword>
                   <gmd:keyword>
-                    <gco:CharacterString>OCEANS | OCEAN ACOUSTICS | ACOUSTIC VELOCITY |  |</gco:CharacterString>
+                    <gco:CharacterString>OCEANS > OCEAN ACOUSTICS > ACOUSTIC VELOCITY >  ></gco:CharacterString>
                   </gmd:keyword>
                   <gmd:thesaurusName>
                     <gmd:CI_Citation>
@@ -256,10 +256,10 @@ Two different XBT probes were used: T5 and T7, see http://www.sippican.com/conte
               <gmd:descriptiveKeywords>
                 <gmd:MD_Keywords>
                   <gmd:keyword>
-                    <gco:CharacterString>GEOGRAPHIC REGION | POLAR |  |  |  |</gco:CharacterString>
+                    <gco:CharacterString>GEOGRAPHIC REGION > POLAR >  >  >  ></gco:CharacterString>
                   </gmd:keyword>
                   <gmd:keyword>
-                    <gco:CharacterString>GEOGRAPHIC REGION | ARCTIC |  |  |  |</gco:CharacterString>
+                    <gco:CharacterString>GEOGRAPHIC REGION > ARCTIC >  >  >  ></gco:CharacterString>
                   </gmd:keyword>
                   <gmd:thesaurusName>
                     <gmd:CI_Citation>
@@ -543,4 +543,3 @@ Two different XBT probes were used: T5 and T7, see http://www.sippican.com/conte
             </gmd:MD_MaintenanceInformation>
           </gmd:metadataMaintenance>
         </gmd:MD_Metadata>
-      

@@ -138,22 +138,26 @@
                     <xsl:for-each select="//gmd:onLine">
                         <dif:Related_URL>
                             <dif:URL_Content_Type>
-                                <dif:Type><xsl:value-of select="normalize-space(substring-before(.//gmd:name/gco:CharacterString, '&gt;'))" /></dif:Type>
-                            <dif:SubType>
-                                <xsl:value-of select="normalize-space(substring-after(.//gmd:name/gco:CharacterString, '&gt;'))" />
-                            </dif:SubType>
+                                <dif:Type>
+                                    <xsl:value-of select="normalize-space(substring-before(.//gmd:name/gco:CharacterString, '&gt;'))" />
+                                </dif:Type>
+                                <dif:SubType>
+                                    <xsl:value-of select="normalize-space(substring-after(.//gmd:name/gco:CharacterString, '&gt;'))" />
+                                </dif:SubType>
                             </dif:URL_Content_Type>
-                            <dif:URL><xsl:value-of select=".//gmd:URL" /></dif:URL>
+                            <dif:URL>
+                                <xsl:value-of select=".//gmd:URL" />
+                            </dif:URL>
                         </dif:Related_URL>
                     </xsl:for-each>
-                        <dif:Summary>
-                            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString" />
-                        </dif:Summary>
-                        <dif:IDN_Node>
-                            <dif:Short_Name>NMDC</dif:Short_Name>
-                        </dif:IDN_Node>
-                        <dif:Metadata_Name>CEOS IDN DIF</dif:Metadata_Name>
-                        <dif:Metadata_Version>9.7.1</dif:Metadata_Version>
+                    <dif:Summary>
+                        <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString" />
+                    </dif:Summary>
+                    <dif:IDN_Node>
+                        <dif:Short_Name>NMDC</dif:Short_Name>
+                    </dif:IDN_Node>
+                    <dif:Metadata_Name>CEOS IDN DIF</dif:Metadata_Name>
+                    <dif:Metadata_Version>9.7.1</dif:Metadata_Version>
                 </dif:DIF>
             </nmdc:nmdc-metadata>
             <nmdc:parameters>
@@ -185,6 +189,18 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:if>
+                <nmdc:pDefs>
+                    <xsl:for-each select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords">
+                        <xsl:for-each select="./gmd:MD_Keywords">
+                            <xsl:for-each select="./gmd:keyword">
+                                <xsl:variable name="str" as="xs:string" select="./gco:CharacterString" />
+                                <xsl:variable name="delim" as="xs:string" select="'&gt;'" />
+                                <nmdc:pDef>EARTH SCIENCE &gt; <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[1])), $delim, ''))" /> &gt; <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[2])), $delim, ''))" /> &gt; <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[3])), $delim, ''))" />
+                                </nmdc:pDef>
+                            </xsl:for-each>
+                        </xsl:for-each>
+                    </xsl:for-each>
+                </nmdc:pDefs>
             </nmdc:parameters>
         </nmdc:meta>
     </xsl:template>
