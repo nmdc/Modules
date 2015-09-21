@@ -195,8 +195,7 @@
                             <xsl:for-each select="./gmd:keyword">
                                 <xsl:variable name="str" as="xs:string" select="./gco:CharacterString" />
                                 <xsl:variable name="delim" as="xs:string" select="'&gt;'" />
-                                <nmdc:pDef>EARTH SCIENCE&gt;<xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[1])), $delim, ''))" />&gt;<xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[2])), $delim, ''))" />&gt;<xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[3])), $delim, ''))" />
-                                </nmdc:pDef>
+                                <nmdc:pDef>EARTH SCIENCE<xsl:if test="string-length(normalize-space(tokenize($str,$delim)[1])) &gt; 0">&gt;<xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[1])), $delim, ''))" /></xsl:if><xsl:if test="string-length(normalize-space(tokenize($str,$delim)[2])) &gt; 0" >&gt;<xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[2])), $delim, ''))" /></xsl:if><xsl:if test="string-length(normalize-space(tokenize($str,$delim)[3])) &gt; 0" >&gt;<xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[3])), $delim, ''))" /></xsl:if></nmdc:pDef>
                             </xsl:for-each>
                         </xsl:for-each>
                     </xsl:for-each>
