@@ -110,11 +110,11 @@
                     <xsl:for-each select="//dif:Parameters">
                         <nmdc:pDef>
                             <xsl:value-of select="normalize-space(./dif:Category)"/>
-                            <xsl:if test="dif:Topic"> &gt; <xsl:value-of select="normalize-space(dif:Topic)"/></xsl:if>
-                            <xsl:if test="dif:Term"> &gt; <xsl:value-of select="normalize-space(dif:Term)"/></xsl:if>
-                            <xsl:if test="dif:Variable_Level_1"> &gt; <xsl:value-of select="normalize-space(dif:Variable_Level_1)"/></xsl:if>
-                            <xsl:if test="dif:Variable_Level_2"> &gt; <xsl:value-of select="normalize-space(dif:Variable_Level_2)"/></xsl:if>
-                            <xsl:if test="dif:Variable_Level_3"> &gt; <xsl:value-of select="normalize-space(dif:Variable_Level_3)"/></xsl:if>
+                            <xsl:if test="dif:Topic">&gt;<xsl:value-of select="normalize-space(dif:Topic)"/></xsl:if>
+                            <xsl:if test="dif:Term">&gt;<xsl:value-of select="normalize-space(dif:Term)"/></xsl:if>
+                            <xsl:if test="dif:Variable_Level_1">&gt;<xsl:value-of select="normalize-space(dif:Variable_Level_1)"/></xsl:if>
+                            <xsl:if test="dif:Variable_Level_2">&gt;<xsl:value-of select="normalize-space(dif:Variable_Level_2)"/></xsl:if>
+                            <xsl:if test="dif:Variable_Level_3">&gt;<xsl:value-of select="normalize-space(dif:Variable_Level_3)"/></xsl:if>
                         </nmdc:pDef>
                     </xsl:for-each>
                 </nmdc:pDefs>
