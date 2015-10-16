@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <camel.version>2.15.2</camel.version>
+        <camel.version>2.16.0</camel.version>
         <activemq.version>5.11.1</activemq.version>
         <xbean.version>4.1</xbean.version>
     </properties>
@@ -77,7 +77,11 @@
             <version>${camel.version}</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-msv</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>

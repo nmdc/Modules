@@ -46,7 +46,7 @@ public class TransformRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() {
-        from("jms:queue:nmdc/harvest-transform")
+        from("jms:queue:nmdc/harvest-transform-dif")
                 .errorHandler(deadLetterChannel(QUEUE_ERROR).maximumRedeliveries(MAXIMUM_REDELIVERIES).redeliveryDelay(REDELIVERY_DELAY))
                 .choice()
                 .when(header("format").isEqualTo("dif"))
