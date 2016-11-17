@@ -1,4 +1,4 @@
-package no.nmdc.module.reindex.init;
+package no.nmdc.module.error.init;
 
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -20,7 +20,7 @@ public class ApplicationInit extends AbstractDispatcherServletInitializer {
     @Override
     protected WebApplicationContext createRootApplicationContext() {
         AnnotationConfigWebApplicationContext cxt = new AnnotationConfigWebApplicationContext();
-        cxt.scan("no.nmdc.module.reindex.config");
+        cxt.scan("no.nmdc.module.error");
         return cxt;
     }
 

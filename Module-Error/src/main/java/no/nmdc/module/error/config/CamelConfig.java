@@ -1,41 +1,37 @@
 package no.nmdc.module.error.config;
 
+import java.util.Arrays;
+import java.util.List;
+import no.nmdc.module.error.routes.LogRouteBuilder;
+import no.nmdc.module.error.routes.SendEmailRoute;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.spring.javaconfig.SingleRouteCamelConfiguration;
+import org.apache.camel.spring.javaconfig.CamelConfiguration;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * The route copnfiguration for the validation.
+ * The route configuration for the validation.
  *
  * @author kjetilf
  */
 @Configuration
-public class CamelConfig extends SingleRouteCamelConfiguration implements InitializingBean {
+public class CamelConfig extends CamelConfiguration implements InitializingBean {
 
-    /**
-     * The route
-     * 1. Get message from the validation jms.
-     * 2. Reindex them in the service.
-     * 3. Send them to the transformation queue.
-     *
-     * @return  The route.
-     */
-    @Override
-    public RouteBuilder route() {
-        return new RouteBuilder() {
+    @Autowired
+    private SendEmailRoute sendEmailRoute;
 
-            @Override
-            public void configure() {
-               from("jms:queue:nmdc/harvest-failure")
-               .to("log:end?level=INFO&showHeaders=true&showBody=false");
-            }
-        };
-    }
+    @Autowired
+    private LogRouteBuilder logRouteBuilder;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         // Do nothing.
+    }
+
+    @Override
+    public List<RouteBuilder> routes() {
+        return Arrays.asList(logRouteBuilder, sendEmailRoute);
     }
 
 }
