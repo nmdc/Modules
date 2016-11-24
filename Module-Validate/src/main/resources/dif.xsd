@@ -191,8 +191,8 @@
       </xs:sequence>
    </xs:complexType>
 </xs:element>
-<xs:element name="Start_Date" type="xs:string"/>
-<xs:element name="Stop_Date" type="xs:string"/>
+<xs:element name="Start_Date" type="xs:date"/>
+<xs:element name="Stop_Date" type="xs:date"/>
 <xs:element name="Paleo_Temporal_Coverage">
    <xs:complexType>
       <xs:sequence>
@@ -202,8 +202,8 @@
       </xs:sequence>
    </xs:complexType>
 </xs:element>
-<xs:element name="Paleo_Start_Date" type="xs:string"/>
-<xs:element name="Paleo_Stop_Date" type="xs:string"/>
+<xs:element name="Paleo_Start_Date" type="xs:date"/>
+<xs:element name="Paleo_Stop_Date" type="xs:date"/>
 
 <xs:element name="Chronostratigraphic_Unit">
    <xs:complexType>
@@ -324,7 +324,7 @@
 <xs:element name="Access_Constraints" type="xs:string"/>
 <xs:element name="Use_Constraints" type="xs:string"/>
 <xs:element name="Data_Set_Language" type="xs:string"/>
-<xs:element name="Originating_Center" type="xs:string"/>
+<xs:element name="Originating_Center" type="xs:string" />
 <xs:element name="Data_Center">
    <xs:complexType>
       <xs:sequence>

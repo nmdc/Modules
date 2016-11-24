@@ -22,10 +22,10 @@ public class ValidationErrorServiceImpl implements ValidationErrorService {
     @Override
     public Object validate(@Headers Map<?, ?> in, @Body String payload, @OutHeaders Map<String, Object> out) {
         String exception = in.get("exception").toString();
-        String message = exception.substring(exception.indexOf("cvc-complex-type"), exception.indexOf("]"));
+        LOGGER.info("Identifier: {} ", in.get("did").toString());
         LOGGER.info("Feil funnet i datasett: {} ", in.get("dname").toString());
         LOGGER.info("Institusjon: {}.", in.get("dinst").toString());
-        LOGGER.info("Feilmelding: {}", message);
+        LOGGER.info("Feilmelding: {}", exception);
         return null;
     }
     
