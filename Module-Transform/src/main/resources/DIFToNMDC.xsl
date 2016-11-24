@@ -84,7 +84,7 @@
                 <xsl:variable name="maxLatitude" select="max(/dif:DIF/*/dif:Northernmost_Latitude)" />
                 <xsl:if test="($minLongitude) and ($maxLongitude) and ($minLatitude) and ($maxLatitude)">
                     <xsl:choose>
-                        <xsl:when test="abs($minLongitude - $maxLongitude) &lt; 0.1 or abs($minLatitude - $maxLatitude) &lt; 0.1">
+                        <xsl:when test="abs($minLongitude - $maxLongitude) &lt; 0.1 and abs($minLatitude - $maxLatitude) &lt; 0.1">
                             <nmdc:point>
                                 <xsl:value-of select="$minLongitude"/>
                                 <xsl:text> </xsl:text>

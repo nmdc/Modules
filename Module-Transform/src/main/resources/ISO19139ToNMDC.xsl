@@ -36,22 +36,24 @@
 
                     <xsl:for-each select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords">
                         <xsl:for-each select="./gmd:MD_Keywords">
-                            <xsl:for-each select="./gmd:keyword">
-                                <dif:Parameters>
-                                    <dif:Category>EARTH SCIENCE</dif:Category>
-                                    <xsl:variable name="str" as="xs:string" select="./gco:CharacterString" />
-                                    <xsl:variable name="delim" as="xs:string" select="'&gt;'" />
-                                    <dif:Topic>
-                                        <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[1])), $delim, ''))" />
-                                    </dif:Topic>
-                                    <dif:Term>
-                                        <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[2])), $delim, ''))" />
-                                    </dif:Term>
-                                    <dif:Variable_Level_1>
-                                        <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[3])), $delim, ''))" />
-                                    </dif:Variable_Level_1>
-                                </dif:Parameters>
-                            </xsl:for-each>
+                            <xsl:if test="not(//gmd:thesaurusName)or ./gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString = 'NASA/GCMD Science Keywords'">
+                                <xsl:for-each select="./gmd:keyword">
+                                    <dif:Parameters>
+                                        <dif:Category>EARTH SCIENCE</dif:Category>
+                                        <xsl:variable name="str" as="xs:string" select="./gco:CharacterString" />
+                                        <xsl:variable name="delim" as="xs:string" select="'&gt;'" />
+                                        <dif:Topic>
+                                            <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[1])), $delim, ''))" />
+                                        </dif:Topic>
+                                        <dif:Term>
+                                            <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[2])), $delim, ''))" />
+                                        </dif:Term>
+                                        <dif:Variable_Level_1>
+                                            <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[3])), $delim, ''))" />
+                                        </dif:Variable_Level_1>
+                                    </dif:Parameters>
+                                </xsl:for-each>
+                            </xsl:if>
                         </xsl:for-each>
                     </xsl:for-each>
                     <dif:Temporal_Coverage>
@@ -192,11 +194,22 @@
                 <nmdc:pDefs>
                     <xsl:for-each select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords">
                         <xsl:for-each select="./gmd:MD_Keywords">
-                            <xsl:for-each select="./gmd:keyword">
-                                <xsl:variable name="str" as="xs:string" select="./gco:CharacterString" />
-                                <xsl:variable name="delim" as="xs:string" select="'&gt;'" />
-                                <nmdc:pDef>EARTH SCIENCE<xsl:if test="string-length(normalize-space(tokenize($str,$delim)[1])) &gt; 0">&gt;<xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[1])), $delim, ''))" /></xsl:if><xsl:if test="string-length(normalize-space(tokenize($str,$delim)[2])) &gt; 0" >&gt;<xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[2])), $delim, ''))" /></xsl:if><xsl:if test="string-length(normalize-space(tokenize($str,$delim)[3])) &gt; 0" >&gt;<xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[3])), $delim, ''))" /></xsl:if></nmdc:pDef>
-                            </xsl:for-each>
+                            <xsl:if test="not(//gmd:thesaurusName)or ./gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString = 'NASA/GCMD Science Keywords'">
+                                <xsl:for-each select="./gmd:keyword">
+                                    <xsl:variable name="str" as="xs:string" select="./gco:CharacterString" />
+                                    <xsl:variable name="delim" as="xs:string" select="'&gt;'" />
+                                    <nmdc:pDef>EARTH SCIENCE<xsl:if test="string-length(normalize-space(tokenize($str,$delim)[1])) &gt; 0">&gt;
+                                            <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[1])), $delim, ''))" />
+                                        </xsl:if>
+                                        <xsl:if test="string-length(normalize-space(tokenize($str,$delim)[2])) &gt; 0" >&gt;
+                                            <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[2])), $delim, ''))" />
+                                        </xsl:if>
+                                        <xsl:if test="string-length(normalize-space(tokenize($str,$delim)[3])) &gt; 0" >&gt;
+                                            <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[3])), $delim, ''))" />
+                                        </xsl:if>
+                                    </nmdc:pDef>
+                                </xsl:for-each>
+                            </xsl:if>
                         </xsl:for-each>
                     </xsl:for-each>
                 </nmdc:pDefs>
