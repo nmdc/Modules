@@ -104,7 +104,7 @@
                         <dif:Data_Set_ID>
                             <xsl:value-of select="gmd:fileIdentifier/gco:CharacterString" />
                         </dif:Data_Set_ID>
-                        <dif:Personel>
+                        <dif:Personnel>
                             <dif:Role></dif:Role>
                             <dif:First_Name></dif:First_Name>
                             <dif:Middle_Name></dif:Middle_Name>
@@ -137,7 +137,7 @@
                                     <xsl:value-of select="gmd:identificationInfo/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:country/gco:CharacterString" />
                                 </dif:Country>
                             </dif:Contact_Address>
-                        </dif:Personel>
+                        </dif:Personnel>
                     </dif:Data_Center>
                     <xsl:for-each select="//gmd:onLine">
                         <dif:Related_URL>
