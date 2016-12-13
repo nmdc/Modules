@@ -52,15 +52,17 @@ public class TransformRouteBuilder extends RouteBuilder {
                 .when(header("format").isEqualTo("dif"))
                 .to("log:end?level=INFO&showHeaders=true&showBody=false")
                 .to("xslt:DIFToNMDC.xsl?saxon=true")
-                .to(FILE_CMP_NAME + moduleConf.getString("nmdc.savedir") + CHARSET_PARAMETER)
+                .to(FILE_CMP_NAME + moduleConf.getString("nmdc.savedir") + CHARSET_PARAMETER)        
+                .to("jms:queue:nmdc/harvest-transform-html")
                 .when(header("format").isEqualTo("iso-19139"))
                 .to("log:end?level=INFO&showHeaders=true&showBody=false")
                 .to("xslt:ISO19139ToNMDC.xsl?saxon=true")
+                .to("jms:queue:nmdc/harvest-transform-html")
                 .to(FILE_CMP_NAME + moduleConf.getString("nmdc.savedir") + CHARSET_PARAMETER)
                 .otherwise()
                 .to("log:end?level=WARN&showHeaders=true&showBody=false")
                 .to(QUEUE_ERROR)
-                .endChoice()
+                .endChoice()                
                 .end();
     }
 }

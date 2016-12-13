@@ -9,9 +9,9 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
-import no.nmdc.module.error.routes.attachment.SendEmailAttachment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import no.nmdc.module.error.routes.attachment.SendErrorEmail;
 
 /**
  *
@@ -25,7 +25,7 @@ public class SendEmailRoute extends RouteBuilder {
     private Configuration configuration;
     
     @Autowired
-    private SendEmailAttachment sendEmailAttachment;
+    private SendErrorEmail sendEmailAttachment;
     
     @Override
     public void configure() throws Exception {

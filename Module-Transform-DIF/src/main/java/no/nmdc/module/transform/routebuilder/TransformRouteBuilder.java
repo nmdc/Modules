@@ -57,7 +57,6 @@ public class TransformRouteBuilder extends RouteBuilder {
                 .to("log:end?level=INFO&showHeaders=true&showBody=false")
                 .to("xslt:ISO19139ToDIF.xsl?saxon=true")
                 .to(FILE_CMP_NAME + moduleConf.getString("dif.savedir") + CHARSET_PARAMETER)
-                .to("jms:queue:nmdc/harvest-transform-html")
                 .otherwise()
                 .to("log:end?level=WARN&showHeaders=true&showBody=false")
                 .to(QUEUE_ERROR)
