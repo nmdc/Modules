@@ -49,7 +49,7 @@ public class TransformRouteBuilder extends RouteBuilder {
         from("jms:queue:nmdc/harvest-transform-html")
                 .errorHandler(deadLetterChannel(QUEUE_ERROR).maximumRedeliveries(MAXIMUM_REDELIVERIES).redeliveryDelay(REDELIVERY_DELAY))
                 .to("log:end?level=INFO&showHeaders=true&showBody=false")
-                .to("xslt:transformedToHtmlfragment.xslt?saxon=true")
+                .to("xslt:transformtohtml.xsl?saxon=true")
                 .to(FILE_CMP_NAME + moduleConf.getString("html.savedir") + CHARSET_PARAMETER)                               
                 .to("log:end?level=WARN&showHeaders=true&showBody=false")
                 .to(QUEUE_ERROR)
