@@ -19,10 +19,10 @@
     <xsl:template match="dif:URL_Content_Type">
         <xsl:copy>
             <xsl:element name="Type" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
-                <xsl:value-of select="//dif:Type" />
+                <xsl:value-of select="./dif:Type" />
             </xsl:element>
             <xsl:element name="SubType" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
-                <xsl:value-of select="//dif:SubType" />
+                <xsl:value-of select="./dif:SubType" />
             </xsl:element>
         </xsl:copy>
     </xsl:template>
@@ -68,6 +68,8 @@
             <xsl:apply-templates select="@* | node()" />
         </xsl:copy>
     </xsl:template>
+    
+
 
     <!-- MATCH ROOT DIF -->
     <xsl:template match="/">
@@ -84,7 +86,7 @@
                 <xsl:variable name="maxLatitude" select="max(/dif:DIF/*/dif:Northernmost_Latitude)" />
                 <xsl:if test="($minLongitude) and ($maxLongitude) and ($minLatitude) and ($maxLatitude)">
                     <xsl:choose>
-                        <xsl:when test="abs($minLongitude - $maxLongitude) &lt; 0.1 or abs($minLatitude - $maxLatitude) &lt; 0.1">
+                        <xsl:when test="abs($minLongitude - $maxLongitude) &lt; 0.1 and abs($minLatitude - $maxLatitude) &lt; 0.1">
                             <nmdc:point>
                                 <xsl:value-of select="$minLongitude"/>
                                 <xsl:text> </xsl:text>
