@@ -1,5 +1,6 @@
 package no.nmdc.module.validate.routebuilder;
 
+import no.nmdc.module.validate.service.ValidationErrorService;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.xml.Namespaces;
 
@@ -35,6 +36,12 @@ public class ValidateRouteBuilder extends RouteBuilder {
      * Error jms queue.
      */
     private static final String QUEUE_ERROR = "jms:queue:nmdc/harvest-failure";
+    
+    private final ValidationErrorService validationErrorService;
+
+    public ValidateRouteBuilder(ValidationErrorService validationErrorService) {
+        this.validationErrorService = validationErrorService;
+    }
 
     @Override
     public void configure() throws Exception {
@@ -43,13 +50,19 @@ public class ValidateRouteBuilder extends RouteBuilder {
                 .to("log:begin?level=INFO&showHeaders=true&showBody=false")
                 .doTry()
                     .choice()
-                        .when().xpath("/dif:DIF", DIF_NAMESPACES)
+                        .when().xpath("/*:DIF", DIF_NAMESPACES)
+                            .setHeader("did",xpath("//*:Entry_ID/text()", String.class))
+                            .setHeader("dname",xpath("//*:Entry_Title/text()", String.class))
+                            .setHeader("dinst",xpath("//*:Dataset_Publisher/text()", String.class))
                             .to("validator:dif.xsd?useDom=false")
                             .setHeader("format", simple("dif"))
                             .to("log:end?level=INFO&showHeaders=true&showBody=false")
                             .to("jms:queue:nmdc/harvest-transform")
                             .to("jms:queue:nmdc/harvest-transform-dif")
-                        .when().xpath("/gmd:MD_Metadata", ISO19139_NAMESPACES)
+                        .when().xpath("/*:MD_Metadata", ISO19139_NAMESPACES)
+                            .setHeader("did",xpath("//*:fileIdentifier/*:CharacterString/text()", String.class))
+                            .setHeader("dname",xpath("//*:title/*:CharacterString/text()", String.class))
+                            .setHeader("dinst",xpath("//*:organisationName/*:CharacterString/text()", String.class))
                             .to("validator:iso19139.xsd?useDom=false")
                             .setHeader("format", simple("iso-19139"))
                             .to("log:end?level=INFO&showHeaders=true&showBody=false")
@@ -60,9 +73,10 @@ public class ValidateRouteBuilder extends RouteBuilder {
                             .to(QUEUE_ERROR)
                     .endChoice()
                 .endDoTry()
-                .doCatch(org.apache.camel.ValidationException.class)
-                .to("log:end?level=WARN&showHeaders=true&showBody=false&showCaughtException=true")
-                .to(QUEUE_ERROR)
+                .doCatch(org.apache.camel.ValidationException.class)                
+                    .setHeader("exception",simple("${property.CamelExceptionCaught}"))                
+                    .to("log:end?level=WARN&showHeaders=true&showBody=false&showCaughtException=true")                               
+                    .bean(validationErrorService, "validate")
                 .end();
     }
 

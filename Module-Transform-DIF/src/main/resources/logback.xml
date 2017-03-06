@@ -7,10 +7,10 @@
             <level>INFO</level>
         </filter>
 
-        <file>${catalina.base}/logs/nmdcmodules/modules_transform.log</file>
+        <file>${catalina.base}/logs/nmdcmodules/modules_transform_dif.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- Daily rollover -->
-            <fileNamePattern>${catalina.base}/logs/nmdcmodules/modules_transform.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${catalina.base}/logs/nmdcmodules/modules_transform_dif.%d{yyyy-MM-dd}.log</fileNamePattern>
 
             <!-- Keep 30 days' worth of history -->
             <maxHistory>7</maxHistory>
@@ -27,10 +27,10 @@
             <level>ERROR</level>
         </filter>
 
-        <file>${catalina.base}/logs/nmdcmodules/modules_transform_error.log</file>
+        <file>${catalina.base}/logs/nmdcmodules/modules_transform_dif_error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- Daily rollover -->
-            <fileNamePattern>${catalina.base}/logs/nmdcmodules/modules_transform_error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${catalina.base}/logs/nmdcmodules/modules_transform_dif_error.%d{yyyy-MM-dd}.log</fileNamePattern>
 
             <!-- Keep 30 days' worth of history -->
             <maxHistory>60</maxHistory>

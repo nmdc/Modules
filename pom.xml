@@ -62,7 +62,8 @@
         <module>Module-Transform</module>
         <module>Module-Error</module>
         <module>Module-Transform-DIF</module>
-  </modules>
+        <module>Module-Html</module>
+    </modules>
 
     <dependencies>
         <dependency>

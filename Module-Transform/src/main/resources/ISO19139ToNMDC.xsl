@@ -53,6 +53,7 @@
                                             <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[3])), $delim, ''))" />
                                         </dif:Variable_Level_1>
                                     </dif:Parameters>                                
+
                                 </xsl:for-each>
                             </xsl:if>
                         </xsl:for-each>
@@ -219,6 +220,5 @@
             </nmdc:parameters>
         </nmdc:meta>
     </xsl:template>
-    <!-- ====================================================== -->
 
 </xsl:stylesheet>
