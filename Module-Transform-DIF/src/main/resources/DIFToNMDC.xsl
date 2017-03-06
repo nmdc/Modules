@@ -19,10 +19,10 @@
     <xsl:template match="dif:URL_Content_Type">
         <xsl:copy>
 <xsl:element name="Type" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
-<xsl:value-of select="//dif:Type" />
+<xsl:value-of select="./dif:Type" />
 </xsl:element>
 <xsl:element name="SubType" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
-           <xsl:value-of select="//dif:SubType" />
+           <xsl:value-of select="./dif:SubType" />
 </xsl:element>
         </xsl:copy>
     </xsl:template>
