@@ -19,8 +19,8 @@
                 xmlns:dif="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:gml="http://www.opengis.net/gml">
-
     <xsl:strip-space elements="*"/>
+    <xsl:param name="identifer"/>    
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" media-type="text/xml"/>
 
     <!-- MATCH ROOT DIF -->
@@ -214,10 +214,11 @@
                             </xsl:if>
                         </xsl:for-each>
                     </xsl:for-each>
+                    <nmdc:identifer>{$identifier}</nmdc:identifer> 
                 </nmdc:pDefs>
 
-            </nmdc:pDefs>
             </nmdc:parameters>
+
         </nmdc:meta>
     </xsl:template>
 

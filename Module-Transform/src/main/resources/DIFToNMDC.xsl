@@ -15,6 +15,7 @@
 
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" media-type="text/xml"/>
     <xsl:strip-space elements="*" />
+    <xsl:param name="identifer"/>
 
     <xsl:template match="dif:URL_Content_Type">
         <xsl:copy>
@@ -119,6 +120,7 @@
                             <xsl:if test="dif:Variable_Level_3">&gt;<xsl:value-of select="normalize-space(dif:Variable_Level_3)"/></xsl:if>
                         </nmdc:pDef>
                     </xsl:for-each>
+                    <nmdc:identifer>{$identifier}</nmdc:identifer> 
                 </nmdc:pDefs>
             </nmdc:parameters>
         </nmdc:meta>
