@@ -1,5 +1,6 @@
 package no.nmdc.module.transform.routebuilder;
 
+import no.nmdc.module.transform.service.HtmlLayout;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
  */
 public class TransformRouteBuilder extends RouteBuilder {
 
+    @Autowired
+    HtmlLayout htmlLayout;
+    
     /**
      * Redelivery delay.
      */
@@ -49,8 +53,10 @@ public class TransformRouteBuilder extends RouteBuilder {
         from("jms:queue:nmdc/harvest-transform-html")
                 .errorHandler(deadLetterChannel(QUEUE_ERROR).maximumRedeliveries(MAXIMUM_REDELIVERIES).redeliveryDelay(REDELIVERY_DELAY))
                 .to("log:end?level=INFO&showHeaders=true&showBody=false")
-                .to("xslt:transformtohtml.xsl?saxon=true")
-                .to(FILE_CMP_NAME + moduleConf.getString("html.savedir") + CHARSET_PARAMETER)                               
+                .to("xslt:transformtodivs.xsl?saxon=true")
+                .to(FILE_CMP_NAME + moduleConf.getString("div.savedir") + CHARSET_PARAMETER)   
+                .bean(htmlLayout, "process")
+                .to(FILE_CMP_NAME + moduleConf.getString("html.savedir") + CHARSET_PARAMETER)   
                 .to("log:end?level=WARN&showHeaders=true&showBody=false")
                 .to(QUEUE_ERROR)
                 .end();
