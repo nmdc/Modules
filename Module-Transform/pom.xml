@@ -48,7 +48,6 @@
                     <name>performRelease</name>
                 </property>
             </activation>
-
             <build>
                 <plugins>
                     <plugin>
