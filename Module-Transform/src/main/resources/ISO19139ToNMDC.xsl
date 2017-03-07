@@ -19,6 +19,7 @@
                 xmlns:dif="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:gml="http://www.opengis.net/gml">
+
     <xsl:strip-space elements="*"/>
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" media-type="text/xml"/>
 
@@ -36,8 +37,8 @@
 
                     <xsl:for-each select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords">
                         <xsl:for-each select="./gmd:MD_Keywords">
-                            <xsl:if test="not(//gmd:thesaurusName)or ./gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString = 'NASA/GCMD Science Keywords'">
-                                <xsl:for-each select="./gmd:keyword">
+                            <xsl:if test="not(//gmd:thesaurusName) or ./gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString = 'NASA/GCMD Science Keywords'">
+                                <xsl:for-each select="./gmd:keyword">                                                                
                                     <dif:Parameters>
                                         <dif:Category>EARTH SCIENCE</dif:Category>
                                         <xsl:variable name="str" as="xs:string" select="./gco:CharacterString" />
@@ -51,7 +52,8 @@
                                         <dif:Variable_Level_1>
                                             <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[3])), $delim, ''))" />
                                         </dif:Variable_Level_1>
-                                    </dif:Parameters>
+                                    </dif:Parameters>                                
+
                                 </xsl:for-each>
                             </xsl:if>
                         </xsl:for-each>
@@ -213,9 +215,10 @@
                         </xsl:for-each>
                     </xsl:for-each>
                 </nmdc:pDefs>
+
+            </nmdc:pDefs>
             </nmdc:parameters>
         </nmdc:meta>
     </xsl:template>
-    <!-- ====================================================== -->
 
 </xsl:stylesheet>
