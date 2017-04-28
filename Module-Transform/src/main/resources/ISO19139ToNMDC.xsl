@@ -35,7 +35,7 @@
                     <dif:Entry_Title>
                         <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString" />
                     </dif:Entry_Title>
-
+                                        
                     <xsl:for-each select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords">
                         <xsl:for-each select="./gmd:MD_Keywords">
                             <xsl:if test="not(//gmd:thesaurusName) or ./gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString = 'NASA/GCMD Science Keywords'">
@@ -54,7 +54,6 @@
                                             <xsl:value-of select="normalize-space(replace(upper-case(normalize-space(tokenize($str,$delim)[3])), $delim, ''))" />
                                         </dif:Variable_Level_1>
                                     </dif:Parameters>                                
-
                                 </xsl:for-each>
                             </xsl:if>
                         </xsl:for-each>
@@ -197,7 +196,7 @@
                 <nmdc:pDefs>
                     <xsl:for-each select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords">
                         <xsl:for-each select="./gmd:MD_Keywords">
-                            <xsl:if test="not(//gmd:thesaurusName)or ./gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString = 'NASA/GCMD Science Keywords'">
+                            <xsl:if test="not(//gmd:thesaurusName) or ./gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString = 'NASA/GCMD Science Keywords'">
                                 <xsl:for-each select="./gmd:keyword">
                                     <xsl:variable name="str" as="xs:string" select="./gco:CharacterString" />
                                     <xsl:variable name="delim" as="xs:string" select="'&gt;'" />
