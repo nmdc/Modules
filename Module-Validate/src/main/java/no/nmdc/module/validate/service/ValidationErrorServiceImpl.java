@@ -22,9 +22,9 @@ public class ValidationErrorServiceImpl implements ValidationErrorService {
     @Override
     public Object validate(@Headers Map<?, ?> in, @Body String payload, @OutHeaders Map<String, Object> out) {
         String exception = in.get("exception").toString();
-        LOGGER.info("Identifier: {} ", in.get("did").toString());
-        LOGGER.info("Feil funnet i datasett: {} ", in.get("dname").toString());
-        LOGGER.info("Institusjon: {}.", in.get("dinst").toString());
+        LOGGER.info("Identifier: {} ", in.get("did") != null ? in.get("did").toString() : " Ukjent");
+        LOGGER.info("Feil funnet i datasett: {} ", in.get("dname") != null ? in.get("dname").toString() : " Ukjent");
+        LOGGER.info("Institusjon: {}.",  in.get("dinst") != null ? in.get("dinst").toString() : " Ukjent");
         LOGGER.info("Feilmelding: {}", exception);
         return null;
     }

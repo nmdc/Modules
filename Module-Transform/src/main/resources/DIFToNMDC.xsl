@@ -15,6 +15,7 @@
 
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" media-type="text/xml"/>
     <xsl:strip-space elements="*" />
+    <xsl:param name="identifier" />
 
     <xsl:template match="dif:URL_Content_Type">
         <xsl:copy>
@@ -120,6 +121,9 @@
                         </nmdc:pDef>
                     </xsl:for-each>
                 </nmdc:pDefs>
+                <nmdc:identifer>
+                    <xsl:value-of select="$identifier" />
+                </nmdc:identifer> 
             </nmdc:parameters>
         </nmdc:meta>
     </xsl:template>
