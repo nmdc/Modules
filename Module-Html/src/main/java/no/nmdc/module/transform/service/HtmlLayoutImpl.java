@@ -41,7 +41,7 @@ public class HtmlLayoutImpl implements HtmlLayout {
         templateDoc.select("#dataset-xml").first().text((String) headers.get("CamelFileRelativePath"));
 
         templateDoc.select("#data-center").first().text(collectText(sourceDoc, "#Originating_Center"));
-        templateDoc.select("#doi").first().text(collectText(sourceDoc, ".Dataset_DOI"));
+        templateDoc.select("#doi").first().text(collectDOIText(sourceDoc, ".Dataset_DOI"));
         String title = collectText(sourceDoc, ".Dataset_Set_Citation", ".DataSet_Title");
         if (title.isEmpty()) {
             title = collectText(sourceDoc, "#Entry_Title");
@@ -65,7 +65,11 @@ public class HtmlLayoutImpl implements HtmlLayout {
             }
             citation.select(".cite-date").first().text(citeDate);
             citation.select(".cite-title").first().text(element.select(".Dataset_Title").text());
-            citation.select(".cite-doi").first().text(element.select(".Dataset_DOI").text());
+            if (!element.select(".Dataset_DOI").text().isEmpty()) {
+             citation.select(".cite-doi").first().text("doi:"+element.select(".Dataset_DOI").text());
+            } else {
+             citation.select(".cite-doi").first().text("");
+            }
             citation_list.appendChild(citation);
         }
         templateDoc.select("#use-constraints").first().text(collectText(sourceDoc, "#Use_Constraints"));
@@ -121,7 +125,15 @@ public class HtmlLayoutImpl implements HtmlLayout {
             download_table.appendChild(newRow);
         }
 
-        templateDoc.select("#dataset-extent").first().text(collectText(sourceDoc, "#boundingboxWKT"));
+//        templateDoc.select("#dataset-extent").first().text(collectText(sourceDoc, "#boundingboxWKT"));
+        for (Element element:sourceDoc.select("#Spatial_Coverage").first().children())  {
+            templateDoc.select("#dataset-extent").first().appendChild(element);
+        }
+        
+                
+        
+        
+        
 
         Element all_metadata = templateDoc.select("#all_metadata").first();
         Element metadata_row = all_metadata.select(".row").first();
@@ -233,5 +245,19 @@ public class HtmlLayoutImpl implements HtmlLayout {
         }
         return text.toString();
     }
+    
+     public String collectDOIText(Document doc, String parentNodeClass) {
+        StringBuilder text = new StringBuilder();
+        for (Element element : doc.select(parentNodeClass)) {
+            text.append("doi:"+element.text());
+            text.append(", ");
+        }
+        if (text.length() > 0) {
+            text.setLength(text.length() - 2);
+        }
+        return text.toString();
+    }
+    
+   
 
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
     <head>
+        <meta charset="utf-8" />
         <script
             src="https://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -34,9 +35,8 @@
                     <h2>Seamless access to Norwegian marine data</h2>
                 </div>
                 <div id="header-links" class="col-lg-2">
-                    <a href="#">Home</a>
-                    <a href="#">About</a>
-                    <a href="#">Contact</a>
+                    <a href="#" id="back-search">Back to search</a>
+                    <a href="http://nmdc.no/prosjekter/nmdc/om-prosjektet">About</a>
                 </div>
             </div>
             <div class="row">
@@ -117,7 +117,8 @@
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#formatted" aria-controls="formatted" role="tab" data-toggle="tab">Metadata</a></li>
                     <li role="presentation"><a href="#raw" aria-controls="raw" role="tab" data-toggle="tab">Raw</a></li>
-                    <li role="presentation"><a href="#nmdcXML" aria-controls="nmdcXML" role="tab" data-toggle="tab">Nmdc Format</a></li>
+                    <li role="presentation"><a href="#transform" aria-controls="transform" role="tab" data-toggle="tab">Transformed</a></li>
+                    <li role="presentation"><a href="#nmdcXML" aria-controls="nmdcXML" role="tab" data-toggle="tab">NMDC</a></li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -140,11 +141,17 @@
                         <pre class="prettyprint">
                         </pre>	     
                     </div>
-                    <div role="tabpanel" class="tab-pane load-tab" id="nmdcXML">
-                      <pre class="prettyprint">
-                        </pre>
+                    <div role="tabpanel" class="tab-pane load-tab" id="transform">
+                        <pre class="prettyprint">
+                        </pre>	     
                     </div>
-                </div>
+                    <div role="tabpanel" class="tab-pane load-tab" id="nmdcXML">
+                        <pre class="prettyprint">
+                        </pre>	     
+                    </div>
+
+                    
+             </div>
 
             </div>
         </div>
