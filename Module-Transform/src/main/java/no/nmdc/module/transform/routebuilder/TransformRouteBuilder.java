@@ -46,23 +46,24 @@ public class TransformRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() {
-        from("jms:queue:nmdc/harvest-transform")
-                .errorHandler(deadLetterChannel(QUEUE_ERROR).maximumRedeliveries(MAXIMUM_REDELIVERIES).redeliveryDelay(REDELIVERY_DELAY))
+        onException(Exception.class).to("log:GeneralError?level=ERROR&showHeaders=true&showBody=true&showException=true");           
+                
+        from("jms:queue:nmdc/harvest-transform")                
                 .choice()
-                    .when(header("format").isEqualTo("dif"))
-                        .to("log:end?level=INFO&showHeaders=true&showBody=false")
-                        .to("xslt:DIFToNMDC.xsl?saxon=true")
+                    .when(header("format").isEqualTo("dif"))                                      
+                        .to("log:start-dif?level=INFO&showHeaders=true&showBody=false")
+                        .to("xslt:DIFToNMDC.xsl?saxon=false")
                         .to(FILE_CMP_NAME + moduleConf.getString("nmdc.savedir") + CHARSET_PARAMETER)        
                         .to("jms:queue:nmdc/harvest-transform-html")
+                        .to("http4://test1.nmdc.no:8983/solr/nmdc/update/xml/docs")
                     .when(header("format").isEqualTo("iso-19139"))
-                        .to("log:end?level=INFO&showHeaders=true&showBody=false")
-                        .to("xslt:ISO19139ToNMDC.xsl?saxon=true")
-                        .to("jms:queue:nmdc/harvest-transform-html")
+                        .to("log:start-iso?level=INFO&showHeaders=true&showBody=false")
+                        .to("xslt:ISO19139ToNMDC.xsl?saxon=false")
                         .to(FILE_CMP_NAME + moduleConf.getString("nmdc.savedir") + CHARSET_PARAMETER)
+                        .to("jms:queue:nmdc/harvest-transform-html")                        
                     .otherwise()
-                        .to("log:end?level=WARN&showHeaders=true&showBody=false")
+                        .to("log:failure?level=WARN&showHeaders=true&showBody=false")
                         .to(QUEUE_ERROR)
-                    .endChoice()                
                 .end();
     }
 }

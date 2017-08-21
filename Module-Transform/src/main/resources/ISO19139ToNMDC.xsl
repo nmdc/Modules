@@ -143,11 +143,20 @@
                         <dif:Related_URL>
                             <dif:URL_Content_Type>
                                 <dif:Type>
-                                    <xsl:value-of select="normalize-space(substring-before(.//gmd:name/gco:CharacterString, '&gt;'))" />
+                                    <xsl:choose>
+                                        <xsl:when test="contains(.//gmd:name/gco:CharacterString, '&gt;')">
+                                            <xsl:value-of select="normalize-space(substring-before(.//gmd:name/gco:CharacterString, '&gt;'))" />
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select=".//gmd:name/gco:CharacterString" />
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </dif:Type>
-                                <dif:SubType>
-                                    <xsl:value-of select="normalize-space(substring-after(.//gmd:name/gco:CharacterString, '&gt;'))" />
-                                </dif:SubType>
+                                <xsl:if test="contains(.//gmd:name/gco:CharacterString, '&gt;')">
+                                    <dif:SubType>
+                                        <xsl:value-of select="normalize-space(substring-after(.//gmd:name/gco:CharacterString, '&gt;'))" />
+                                    </dif:SubType>
+                                </xsl:if>
                             </dif:URL_Content_Type>
                             <dif:URL>
                                 <xsl:value-of select=".//gmd:URL" />

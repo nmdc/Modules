@@ -95,17 +95,17 @@
                             </nmdc:point>
                         </xsl:when>
                         <xsl:otherwise>
-                            <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude"/>
+                            <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude - 0.1"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>
+                                <xsl:value-of select="$minLatitude - 0.1"/>,<xsl:value-of select="$maxLongitude + 0.1"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>
+                                <xsl:value-of select="$minLatitude - 0.1"/>,<xsl:value-of select="$maxLongitude + 0.1"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>
+                                <xsl:value-of select="$maxLatitude + 0.1"/>,<xsl:value-of select="$minLongitude - 0.1"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>
+                                <xsl:value-of select="$maxLatitude + 0.1"/>,<xsl:value-of select="$minLongitude - 0.1"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:value-of select="$minLatitude" />))</nmdc:polygon>
+                                <xsl:value-of select="$minLatitude - 0.1" />))</nmdc:polygon>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:if>
