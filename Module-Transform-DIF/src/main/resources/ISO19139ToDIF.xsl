@@ -132,15 +132,39 @@
                         </dif:Country>
                     </dif:Contact_Address>
                 </dif:Personnel>
-                <dif:Summary>
-                    <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString" />
-                </dif:Summary>
-                <dif:IDN_Node>
-                    <dif:Short_Name>NMDC</dif:Short_Name>
-                </dif:IDN_Node>
-                <dif:Metadata_Name>CEOS IDN DIF</dif:Metadata_Name>
-                <dif:Metadata_Version>9.7.1</dif:Metadata_Version>
-            </dif:Data_Center>
+            </dif:Data_Center>     
+            <xsl:for-each select="//gmd:onLine">
+               <dif:Related_URL>
+                            <dif:URL_Content_Type>
+                                <dif:Type>
+                                    <xsl:choose>
+                                        <xsl:when test="contains(.//gmd:name/gco:CharacterString, '&gt;')">
+                                            <xsl:value-of select="normalize-space(substring-before(.//gmd:name/gco:CharacterString, '&gt;'))" />
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select=".//gmd:name/gco:CharacterString" />
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </dif:Type>
+                                <xsl:if test="contains(.//gmd:name/gco:CharacterString, '&gt;')">
+                                    <dif:SubType>
+                                        <xsl:value-of select="normalize-space(substring-after(.//gmd:name/gco:CharacterString, '&gt;'))" />
+                                    </dif:SubType>
+                                </xsl:if>
+                            </dif:URL_Content_Type>
+                            <dif:URL>
+                                <xsl:value-of select=".//gmd:URL" />
+                            </dif:URL>
+                        </dif:Related_URL>
+            </xsl:for-each>                       
+            <dif:Summary>
+                <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString" />
+            </dif:Summary>
+            <dif:IDN_Node>
+                <dif:Short_Name>NMDC</dif:Short_Name>
+            </dif:IDN_Node>
+            <dif:Metadata_Name>CEOS IDN DIF</dif:Metadata_Name>
+            <dif:Metadata_Version>9.7.1</dif:Metadata_Version>
         </dif:DIF>
     </xsl:template>
     <!-- ====================================================== -->
