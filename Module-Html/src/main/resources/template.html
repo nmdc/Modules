@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="no">
+    <head>
+        <meta charset="utf-8" />
+        <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+
+        <link rel="stylesheet" href="https://openlayers.org/en/v3.20.1/css/ol.css" type="text/css">
+        <script src="https://openlayers.org/en/v3.20.1/build/ol.js"></script>
+
+        <link href="../css/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../js/lib/prettify.js"></script>
+
+        <script src="../js/lib/vkBeautify.js"></script>
+        <script src="../js/map.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../css/nmdc.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <img class="logo" src="../images/logo.png">
+                </div>
+                <div id="heading-title" class="col-lg-8 ">
+                    <h2>Seamless access to Norwegian marine data</h2>
+                </div>
+                <div id="header-links" class="col-lg-2">
+                    <a href="#" id="back-search">Back to search</a>
+                    <a href="http://nmdc.no/prosjekter/nmdc/om-prosjektet">About</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="header-bar">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 left-col">
+
+                    <div id="data-center">Data center name</div> 
+                    <div id="doi">DOI</div>
+                    <h4 id="dataset-title">Dataset title</h4>
+                    <h5 id="recomended-citation-label">Recommended citation:</h5>
+                    <div id="cite-list" >
+                        <div class="recomended-citation">
+                            <span class="cite-creator">Cite Creator</span>
+                            <span class="cite-date">Cite date</span>
+                            <span class="cite-title">Cite title</span>
+                            <span class="cite-doi">Cite doi</span>
+                        </div>
+                    </div>
+                    <h5 >Usage :</h5>
+                    <div id="use-constraints" >
+                    </div>
+                </div>
+                <div id="map" class="map col-lg-6 right-col xleft-col">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 abstract lxeft-col">
+                    <h5>Abstract</h5>
+                    <div id="abstract">Abstract</div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            Scientific keywords:
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="science_keywords" class="col-lg-12">
+                            <div class="science_keyword">
+                                Sceince Keyword
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-3">
+                            Key words:
+                        </div>
+                        <div id="keywords" class="col-lg-9">
+                            Keywords
+                        </div>
+                    </div>
+                </div>    
+                <div class="col-lg-6 right-col">
+                    <h5>Data downloads</h5>
+                    <table class="table">
+                        <thead>
+                            <tr><td>Type</td><td>Description</td><td>URL</td></tr>
+                        </thead>
+                        <tbody id="download_table">
+                            <tr class="download_row"><td class="download_type">Type</td> <td class="download_desc">Description</td> <td><a href="#" class="download_url">ftp://ftp.nmdc.no/xxxx/ffff.zip</a></td></tr>
+                        </tbody>
+                    </table>
+
+                </div>    
+            </div>
+
+        </div>
+
+        <div id="dataset-extent" >
+        </div >
+
+        <!-- Nav tabs -->
+        <div class="container">
+            <div class="row">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#formatted" aria-controls="formatted" role="tab" data-toggle="tab">Metadata</a></li>
+                    <li role="presentation"><a href="#raw" aria-controls="raw" role="tab" data-toggle="tab">Raw</a></li>
+                    <li role="presentation"><a href="#transform" aria-controls="transform" role="tab" data-toggle="tab">Transformed</a></li>
+                    <li role="presentation"><a href="#nmdcXML" aria-controls="nmdcXML" role="tab" data-toggle="tab">NMDC</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="formatted">
+                      <div class="well">
+                        <div id="all_metadata" class="container">
+                            <div class="row">
+                                <div class="col-lg-2 text-right metadata_label">
+                                    Label
+                                </div>
+                                <div class="col-lg-10 metadata_detail">
+                                    Details
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane load-tab" id="raw">
+                        <pre class="prettyprint">
+                        </pre>	     
+                    </div>
+                    <div role="tabpanel" class="tab-pane load-tab" id="transform">
+                        <pre class="prettyprint">
+                        </pre>	     
+                    </div>
+                    <div role="tabpanel" class="tab-pane load-tab" id="nmdcXML">
+                        <pre class="prettyprint">
+                        </pre>	     
+                    </div>
+
+                    
+             </div>
+
+            </div>
+        </div>
+        <div id="dataset-xml" >
+        </div >
+  
+  
+        <div id="noSpatial">
+            No Spatial coverage
+        </div>
+
+
+
+    </body>
+</html>
+

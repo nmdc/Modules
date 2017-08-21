@@ -1,6 +1,8 @@
 package no.nmdc.module.transform.config;
 
 import no.nmdc.module.transform.routebuilder.TransformRouteBuilder;
+import no.nmdc.module.transform.service.HtmlLayout;
+import no.nmdc.module.transform.service.HtmlLayoutImpl;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
@@ -36,7 +38,7 @@ public class ApplicationConfig {
      */
     @Bean(name = "moduleConf")
     public PropertiesConfiguration getFileReaderConfiguration() throws ConfigurationException {
-        PropertiesConfiguration conf = new PropertiesConfiguration(System.getProperty("catalina.base") + "/conf/module-transform-dif.properties");
+        PropertiesConfiguration conf = new PropertiesConfiguration(System.getProperty("catalina.base") + "/conf/module-transform-html.properties");
         conf.setReloadingStrategy(new FileChangedReloadingStrategy());
         return conf;
     }
@@ -51,4 +53,10 @@ public class ApplicationConfig {
         return new TransformRouteBuilder();
     }
 
+    
+    @Bean 
+    public HtmlLayout htmlLayout() {
+        return new HtmlLayoutImpl();
+    }
+    
 }
