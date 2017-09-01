@@ -55,7 +55,6 @@ public class TransformRouteBuilder extends RouteBuilder {
                         .to("xslt:DIFToNMDC.xsl?saxon=false")
                         .to(FILE_CMP_NAME + moduleConf.getString("nmdc.savedir") + CHARSET_PARAMETER)        
                         .to("jms:queue:nmdc/harvest-transform-html")
-                        .to("http4://test1.nmdc.no:8983/solr/nmdc/update/xml/docs")
                     .when(header("format").isEqualTo("iso-19139"))
                         .to("log:start-iso?level=INFO&showHeaders=true&showBody=false")
                         .to("xslt:ISO19139ToNMDC.xsl?saxon=false")

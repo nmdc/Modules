@@ -35,7 +35,43 @@
                     <dif:Entry_Title>
                         <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString" />
                     </dif:Entry_Title>
-                                        
+                    <dif:Data_Set_Citation>
+                        <dif:Dataset_Creator>
+                            <xsl:for-each select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:citedResponsibleParty">
+                                <xsl:if test="./gmd:CI_ResponsibleParty/gmd:individualName/gco:CharacterString">
+                                    <xsl:value-of select="./gmd:CI_ResponsibleParty/gmd:individualName/gco:CharacterString" />
+                                    <xsl:text> (</xsl:text>
+                                    <xsl:value-of select="./gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString" />
+                                    <xsl:text>)&#xA;</xsl:text>
+                                </xsl:if>
+                            </xsl:for-each>                            
+                        </dif:Dataset_Creator>
+                        <dif:Dataset_Title>
+                            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString" />
+                        </dif:Dataset_Title>
+                        <dif:Dataset_Series_Name></dif:Dataset_Series_Name>                       
+                        <dif:Dataset_Release_Date>
+                            <xsl:choose>
+                                <xsl:when test="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date">
+                                    <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:DateTime" />
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </dif:Dataset_Release_Date>
+                        <dif:Dataset_Publisher></dif:Dataset_Publisher>
+                        <dif:Version>
+                            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:edition/gco:CharacterString" />
+                        </dif:Version>
+                        <dif:Issue_Identification></dif:Issue_Identification>
+                        <dif:Data_Presentation_Form></dif:Data_Presentation_Form>
+                        <xsl:if test="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:identifier/gmd:MD_identifier/gmd:code/gco:CharacterString">
+                            <dif:Dataset_DOI>
+                                <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:identifier/gmd:MD_identifier/gmd:code/gco:CharacterString" />
+                            </dif:Dataset_DOI>
+                        </xsl:if>
+                    </dif:Data_Set_Citation>
                     <xsl:for-each select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords">
                         <xsl:for-each select="./gmd:MD_Keywords">
                             <xsl:if test="not(//gmd:thesaurusName) or ./gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString = 'NASA/GCMD Science Keywords'">
@@ -90,15 +126,15 @@
                         <xsl:if test="gmd:language/gmd:LanguageCode/@codeListValue = 'nor'">no</xsl:if>
                     </dif:Data_Set_Language>
                     <dif:Originating_Center>
-                        <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString" />
+                        <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:role/gmd:CI_Rolecode[@codeListValue='originator']/../../gmd:organisationName/gco:CharacterString" />
                     </dif:Originating_Center>
                     <dif:Data_Center>
                         <dif:Data_Center_Name>
                             <dif:Short_Name>
-                                <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString" />
+                                <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:role/gmd:CI_Rolecode[@codeListValue='originator']/../../gmd:organisationName/gco:CharacterString" />
                             </dif:Short_Name>
                             <dif:Long_Name>
-                                <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString" />
+                                <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:role/gmd:CI_Rolecode[@codeListValue='originator']/../../gmd:organisationName/gco:CharacterString" />
                             </dif:Long_Name>
                         </dif:Data_Center_Name>
                         <dif:Data_Set_ID>
@@ -153,16 +189,33 @@
                                     </xsl:choose>
                                 </dif:Type>
                                 <xsl:if test="contains(.//gmd:name/gco:CharacterString, '&gt;')">
-                                    <dif:SubType>
+                                    <dif:Subtype>
                                         <xsl:value-of select="normalize-space(substring-after(.//gmd:name/gco:CharacterString, '&gt;'))" />
-                                    </dif:SubType>
+                                    </dif:Subtype>
                                 </xsl:if>
                             </dif:URL_Content_Type>
                             <dif:URL>
                                 <xsl:value-of select=".//gmd:URL" />
                             </dif:URL>
+                            <xsl:if test="contains(.//gmd:description/gco:CharacterString, '&gt;')">
+                                <dif:Description>
+                                    <xsl:value-of select=".//gmd:description/gco:CharacterString" />
+                                </dif:Description>
+                            </xsl:if>
                         </dif:Related_URL>
                     </xsl:for-each>
+                    <dif:Use_Constraints>
+                        <xsl:for-each select=".//gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:useConstraints">                            
+                            <xsl:value-of select="../gmd:otherConstraints/gco:CharacterString" />
+                            <xsl:text>&#xA;</xsl:text>
+                        </xsl:for-each>
+                    </dif:Use_Constraints>
+                    <dif:Access_Constraints>
+                        <xsl:for-each select=".//gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:accessConstraints">                            
+                            <xsl:value-of select="../gmd:otherConstraints/gco:CharacterString" />
+                            <xsl:text>&#xA;</xsl:text>
+                        </xsl:for-each>
+                    </dif:Access_Constraints>                    
                     <dif:Summary>
                         <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString" />
                     </dif:Summary>
@@ -205,7 +258,7 @@
                 <nmdc:pDefs>
                     <xsl:for-each select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords">
                         <xsl:for-each select="./gmd:MD_Keywords">
-                            <xsl:if test="not(//gmd:thesaurusName) or ./gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString = 'NASA/GCMD Science Keywords'">
+                            <xsl:if test="./gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString = 'NASA/GCMD Science Keywords'">
                                 <xsl:for-each select="./gmd:keyword">
                                     <xsl:variable name="str" as="xs:string" select="./gco:CharacterString" />
                                     <xsl:variable name="delim" as="xs:string" select="'&gt;'" />

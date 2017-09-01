@@ -22,8 +22,8 @@
             <xsl:element name="Type" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
                 <xsl:value-of select="./dif:Type" />
             </xsl:element>
-            <xsl:element name="SubType" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
-                <xsl:value-of select="./dif:SubType" />
+            <xsl:element name="Subtype" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
+                <xsl:value-of select="./dif:Subtype" />
             </xsl:element>
         </xsl:copy>
     </xsl:template>
