@@ -65,15 +65,28 @@
         <module>Module-Html</module>
     </modules>
 
-    <dependencies>      
-     <dependency>
+    <dependencies>   
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.11.0</version>
+        </dependency>        
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>2.0.6</version>
+        </dependency>             
+        <dependency>
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>
             <version>2.11.0</version>
             <scope>provided</scope>
         </dependency>
-
-        
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.5</version>
+        </dependency>        
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test-spring</artifactId>
@@ -103,6 +116,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-http4</artifactId>
+            <version>${camel.version}</version>
+        </dependency>        
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-jms</artifactId>
             <version>${camel.version}</version>
         </dependency>
@@ -120,6 +138,11 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-saxon</artifactId>
             <version>${camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>Saxon-HE</artifactId>
+            <version>9.8.0-3</version>
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>

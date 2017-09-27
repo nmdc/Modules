@@ -78,7 +78,7 @@
                 <xsl:variable name="maxLatitude" select="max(/dif:DIF/*/dif:Northernmost_Latitude)" />
                 <xsl:if test="($minLongitude) and ($maxLongitude) and ($minLatitude) and ($maxLatitude)">
                     <xsl:choose>
-                        <xsl:when test="abs($minLongitude - $maxLongitude) &lt; 0.1 and abs($minLatitude - $maxLatitude) &lt; 0.1">
+                        <xsl:when test="abs($minLongitude - $maxLongitude) &lt; 0.1 or abs($minLatitude - $maxLatitude) &lt; 0.1">
                             <nmdc:point>
                                 <xsl:value-of select="$minLongitude"/>
                                 <xsl:text> </xsl:text>
@@ -86,17 +86,17 @@
                             </nmdc:point>
                         </xsl:when>
                         <xsl:otherwise>
-                            <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude - 0.1"/>
+                            <nmdc:polygon>POLYGON((<xsl:value-of select="max(($minLongitude - 0.1, -90))"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:value-of select="$minLatitude - 0.1"/>,<xsl:value-of select="$maxLongitude + 0.1"/>
+                                <xsl:value-of select="max(($minLatitude - 0.1, -90))"/>,<xsl:value-of select="min(($maxLongitude + 0.1, 90))"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:value-of select="$minLatitude - 0.1"/>,<xsl:value-of select="$maxLongitude + 0.1"/>
+                                <xsl:value-of select="max(($minLatitude - 0.1, -90))"/>,<xsl:value-of select="min(($maxLongitude + 0.1, 90))"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:value-of select="$maxLatitude + 0.1"/>,<xsl:value-of select="$minLongitude - 0.1"/>
+                                <xsl:value-of select="min(($maxLatitude + 0.1, 90))"/>,<xsl:value-of select="max(($minLongitude - 0.1, -90))"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:value-of select="$maxLatitude + 0.1"/>,<xsl:value-of select="$minLongitude - 0.1"/>
+                                <xsl:value-of select="min(($maxLatitude + 0.1, 90))"/>,<xsl:value-of select="max(($minLongitude - 0.1, -90))"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:value-of select="$minLatitude - 0.1" />))</nmdc:polygon>
+                                <xsl:value-of select="max(($minLatitude - 0.1, -90))" />))</nmdc:polygon>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:if>

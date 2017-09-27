@@ -79,7 +79,7 @@ public class TransformRouteBuilder extends RouteBuilder {
         from("direct:index")
                 .setHeader(Exchange.HTTP_METHOD, constant(org.apache.camel.component.http4.HttpMethods.POST))
                 .setHeader(Exchange.CONTENT_TYPE, constant("text/xml; charset=UTF-8"))                
-                .to("http4://" + moduleConf.getString("solr.url") + "/solr/nmdc/update?authUsername=" + moduleConf.getString("solr.username") + "&authPassword=" + moduleConf.getString("solr.password") + "&authenticationPreemptive=true&commit=true&tr=update.xslt");
+                .to("http4://" + moduleConf.getString("solr.url") + "/solr/nmdc/update?commitWithin=30000&authUsername=" + moduleConf.getString("solr.username") + "&authPassword=" + moduleConf.getString("solr.password") + "&authenticationPreemptive=true&tr=update.xslt");
         
         from("direct:transformHtml")
                 .to("jms:queue:nmdc/harvest-transform-html");

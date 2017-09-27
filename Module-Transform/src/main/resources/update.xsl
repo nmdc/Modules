@@ -5,7 +5,6 @@
                 xmlns:dif="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
 
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" media-type="text/xml"/>
-    <xsl:strip-space elements="*" />
     
     <xsl:template match="/">
         <xsl:element name="update">
@@ -22,9 +21,12 @@
                         <xsl:value-of select="nmdc:nmdc-metadata/dif:DIF/dif:Entry_Title" />
                     </xsl:element>
                     <xsl:variable name="startDate" select="nmdc:nmdc-metadata/dif:DIF/dif:Temporal_Coverage/dif:Start_Date" />
-                    <xsl:variable name="stopDate" select="nmdc:nmdc-metadata/dif:DIF/dif:Temporal_Coverage/dif:Stop_Date" />
+                    
                     <xsl:element name="field"><xsl:attribute name="name">Start_Date</xsl:attribute><xsl:value-of select="substring($startDate, 1, 10)" />T00:00:00Z</xsl:element>    
-                    <xsl:element name="field"><xsl:attribute name="name">Stop_Date</xsl:attribute><xsl:value-of select="substring($stopDate, 1, 10)" />T00:00:00Z</xsl:element>   
+                    <xsl:if test="nmdc:nmdc-metadata/dif:DIF/dif:Temporal_Coverage/dif:Stop_Date">
+                        <xsl:variable name="stopDate" select="nmdc:nmdc-metadata/dif:DIF/dif:Temporal_Coverage/dif:Stop_Date" />
+                        <xsl:element name="field"><xsl:attribute name="name">Stop_Date</xsl:attribute><xsl:value-of select="substring($stopDate, 1, 10)" />T00:00:00Z</xsl:element>   
+                    </xsl:if>
                     <xsl:element name="field">
                         <xsl:attribute name="name">Scientific_Keyword</xsl:attribute>
                         <xsl:value-of select="nmdc:parameters/nmdc:pDefs/nmdc:pDef" />
@@ -55,16 +57,27 @@
                     </xsl:element>   
                     <xsl:element name="field">
                         <xsl:attribute name="name">PersonLastName</xsl:attribute>
-                        <xsl:value-of select="/nmdc:nmdc-metadata/dif:DIF/dif:Data_Center/dif:Personnel/dif:Last_Name" />
+                        <xsl:value-of select="nmdc:nmdc-metadata/dif:DIF/dif:Data_Center/dif:Personnel/dif:Last_Name" />
                     </xsl:element>   
                     <xsl:element name="field">
                         <xsl:attribute name="name">identifier</xsl:attribute>
                         <xsl:value-of select="nmdc:parameters/nmdc:identifer" />
                     </xsl:element>    
+                    <xsl:element name="field">
+                        <xsl:attribute name="name">text</xsl:attribute>
+                        <xsl:value-of select="nmdc:parameters/nmdc:identifer" />
+                    </xsl:element>     
+                    <xsl:element name="field">
+                        <xsl:attribute name="name">alltext</xsl:attribute>
+                        <xsl:for-each select="//text()">
+                            <xsl:value-of select="//*" />
+                            <xsl:text> </xsl:text>
+                        </xsl:for-each>
+                    </xsl:element>                        
                     <xsl:if test="nmdc:parameters/nmdc:polygon">
                         <xsl:element name="field">
                             <xsl:attribute name="name">location_rpt</xsl:attribute>
-                            <xsl:value-of select="nmdc:parameters/nmdc:polygon" />
+                            <xsl:value-of select="nmdc:parameters/nmdc:polygon"/>
                         </xsl:element> 
                     </xsl:if>
                     <xsl:if test="nmdc:parameters/nmdc:point">

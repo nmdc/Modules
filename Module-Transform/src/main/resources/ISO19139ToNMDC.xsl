@@ -95,12 +95,26 @@
                         </xsl:for-each>
                     </xsl:for-each>
                     <dif:Temporal_Coverage>
-                        <dif:Start_Date>
-                            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:beginPosition" />
-                        </dif:Start_Date>
-                        <dif:Stop_Date>
-                            <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:endPosition" />
-                        </dif:Stop_Date>
+                        <xsl:if test="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:begin/gml:TimeInstant/gml:timePosition">
+                            <dif:Start_Date>                            
+                                <xsl:value-of select="substring(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:begin/gml:TimeInstant/gml:timePosition, 0, 10)" />                          
+                            </dif:Start_Date>
+                        </xsl:if>
+                        <xsl:if test="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:beginPosition">
+                            <dif:Start_Date>                            
+                                <xsl:value-of select="substring(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:beginPosition, 0, 10)" />                          
+                            </dif:Start_Date>
+                        </xsl:if>
+                        <xsl:if test="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:end/gml:TimeInstant/gml:timePosition">
+                            <dif:Stop_Date>
+                                <xsl:value-of select="substring(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:end/gml:TimeInstant/gml:timePosition, 0, 10)" />
+                            </dif:Stop_Date>
+                        </xsl:if>
+                        <xsl:if test="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:endPosition">
+                            <dif:Stop_Date>                            
+                                <xsl:value-of select="substring(gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:endPosition, 0, 10)" />                          
+                            </dif:Stop_Date>
+                        </xsl:if>                        
                     </dif:Temporal_Coverage>
                     <dif:Data_Set_Progress>Finished</dif:Data_Set_Progress>
                     <dif:Spatial_Coverage>
@@ -126,7 +140,7 @@
                         <xsl:if test="gmd:language/gmd:LanguageCode/@codeListValue = 'nor'">no</xsl:if>
                     </dif:Data_Set_Language>
                     <dif:Originating_Center>
-                        <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:role/gmd:CI_Rolecode[@codeListValue='originator']/../../gmd:organisationName/gco:CharacterString" />
+                        <xsl:value-of select="gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString" />
                     </dif:Originating_Center>
                     <dif:Data_Center>
                         <dif:Data_Center_Name>
