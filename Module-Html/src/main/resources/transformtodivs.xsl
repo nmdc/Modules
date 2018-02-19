@@ -146,7 +146,7 @@
       </xsl:for-each>
     </div>
 
-    <div id="Summary"><xsl:value-of select="dif:Summary/text()"/></div>
+    <div id="Summary"><xsl:value-of select="dif:Summary/descendant-or-self::text()"/></div>
 
     <div id='Related_URL_List'>
       <xsl:for-each select="dif:Related_URL">
