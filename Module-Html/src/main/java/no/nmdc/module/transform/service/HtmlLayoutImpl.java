@@ -20,13 +20,19 @@ import org.springframework.core.io.Resource;
  */
 public class HtmlLayoutImpl implements HtmlLayout {
 
+
     /**
      * This modules properties.
      */
     @Autowired
     @Qualifier("moduleConf")
     private PropertiesConfiguration moduleConf;
+    
 
+    //TODO Convert to an extendable solution
+    String ccBY40="<a rel='license' href='http://creativecommons.org/licenses/by/4.0/'><img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by/4.0/80x15.png' /></a><a rel='license' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>";
+    
+            
     private Resource template = new ClassPathResource("template.html");
 
     @Override
@@ -41,7 +47,10 @@ public class HtmlLayoutImpl implements HtmlLayout {
         templateDoc.select("#dataset-xml").first().text((String) headers.get("CamelFileRelativePath"));
 
         templateDoc.select("#data-center").first().text(collectText(sourceDoc, "#Originating_Center"));
-        templateDoc.select("#doi").first().text(collectDOIText(sourceDoc, ".Dataset_DOI"));
+        
+        templateDoc.select("#doi").first().html(collectDOIHTML(sourceDoc, ".Dataset_DOI"));
+        //templateDoc.select("#doi").first().text(collectDOIHTML(sourceDoc, ".Dataset_DOI")) ;
+        
         String title = collectText(sourceDoc, ".Dataset_Set_Citation", ".DataSet_Title");
         if (title.isEmpty()) {
             title = collectText(sourceDoc, "#Entry_Title");
@@ -66,13 +75,19 @@ public class HtmlLayoutImpl implements HtmlLayout {
             citation.select(".cite-date").first().text(citeDate);
             citation.select(".cite-title").first().text(element.select(".Dataset_Title").text());
             if (!element.select(".Dataset_DOI").text().isEmpty()) {
-             citation.select(".cite-doi").first().text("doi:"+element.select(".Dataset_DOI").text());
+		//citation.select(".cite-doi").first().text("doi:"+element.select(".Dataset_DOI").text());
+		citation.select(".cite-doi").first().text(getDOIText(element.select(".Dataset_DOI").text()));
+	     
             } else {
              citation.select(".cite-doi").first().text("");
             }
             citation_list.appendChild(citation);
         }
-        templateDoc.select("#use-constraints").first().text(collectText(sourceDoc, "#Use_Constraints"));
+        
+
+       // templateDoc.select("#use-constraints").first().text(collectText(sourceDoc, "#Use_Constraints"));
+        templateDoc.select("#use-constraints").first().html(mapUsageConstraints(collectText(sourceDoc, "#Use_Constraints")));        
+        
         templateDoc.select("#abstract").first().text(collectText(sourceDoc, "#Summary"));
 
         Element science_keywords = templateDoc.select("#science_keywords").first();
@@ -249,7 +264,7 @@ public class HtmlLayoutImpl implements HtmlLayout {
      public String collectDOIText(Document doc, String parentNodeClass) {
         StringBuilder text = new StringBuilder();
         for (Element element : doc.select(parentNodeClass)) {
-            text.append("doi:"+element.text());
+	    text.append("doi:"+element.text());
             text.append(", ");
         }
         if (text.length() > 0) {
@@ -257,7 +272,58 @@ public class HtmlLayoutImpl implements HtmlLayout {
         }
         return text.toString();
     }
+
+    public String getDOIText(String doi){
+	String result ="doi:";
+	
+	if (doi.contains("doi.org")){
+	    String[] parts = doi.split("/");
+	    if (parts.length >= 5) {
+		result = result + parts[3]+"/"+parts[4];
+	    } else {
+		result ="";
+	    }
+	} else {
+	    result = result+doi;
+	}
+	return result;
+    }
+     public String collectDOIHTML(Document doc, String parentNodeClass) {
+        StringBuilder html = new StringBuilder();
+        for (Element element : doc.select(parentNodeClass)) {
+	    if (element.text().startsWith("http")) {
+		html.append("<a href='");
+		html.append(element.text());
+		html.append("'>");
+		html.append(getDOIText(element.text()));
+		html.append("</a>");
+	    }
+	    else {
+		html.append("<a href='https://doi.org/");
+		html.append(element.text());
+		html.append("'>");
+		html.append(getDOIText(element.text()));
+		html.append("</a>");
+	    }
+            html.append(", ");
+        }
+        if (html.length() > 0) {
+            html.setLength(html.length() - 2);
+        }
+        return html.toString();
+    }
     
+     public String mapUsageConstraints(String text) {
+         String result = text;
+         
+         if (text.equals("CC BY 4.0")) {
+             result = ccBY40;
+         }
+    
+         
+         
+     return result;    
+     }
    
 
 }
