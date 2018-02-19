@@ -5,6 +5,9 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+
 /**
  * Defines the route the transformation is to go through.
  *
@@ -43,26 +46,43 @@ public class TransformRouteBuilder extends RouteBuilder {
     @Autowired
     @Qualifier("moduleConf")
     private PropertiesConfiguration moduleConf;
-
+    
     @Override
     public void configure() {
+        onException(Exception.class).to("log:GeneralError?level=ERROR&showHeaders=true&showBody=true&showException=true");
+        
         from("jms:queue:nmdc/harvest-transform")
-                .errorHandler(deadLetterChannel(QUEUE_ERROR).maximumRedeliveries(MAXIMUM_REDELIVERIES).redeliveryDelay(REDELIVERY_DELAY))
-                .choice()
-                    .when(header("format").isEqualTo("dif"))
-                        .to("log:end?level=INFO&showHeaders=true&showBody=false")
-                        .to("xslt:DIFToNMDC.xsl?saxon=true")
-                        .to(FILE_CMP_NAME + moduleConf.getString("nmdc.savedir") + CHARSET_PARAMETER)        
-                        .to("jms:queue:nmdc/harvest-transform-html")
-                    .when(header("format").isEqualTo("iso-19139"))
-                        .to("log:end?level=INFO&showHeaders=true&showBody=false")
-                        .to("xslt:ISO19139ToNMDC.xsl?saxon=true")
-                        .to("jms:queue:nmdc/harvest-transform-html")
-                        .to(FILE_CMP_NAME + moduleConf.getString("nmdc.savedir") + CHARSET_PARAMETER)
-                    .otherwise()
-                        .to("log:end?level=WARN&showHeaders=true&showBody=false")
-                        .to(QUEUE_ERROR)
-                    .endChoice()                
+                .to("log:failure?level=WARN&showHeaders=true&showBody=false")
+                    .choice()
+                        .when(header("format").isEqualTo("dif"))
+                            .to("direct:transformDif")
+                        .when(header("format").isEqualTo("iso-19139"))
+                            .to("direct:transformIso")
+                        .otherwise()
+                            .to(QUEUE_ERROR)
+                    .endChoice()
                 .end();
+        
+        from("direct:transformDif")
+                .to("xslt:DIFToNMDC.xsl?saxon=false&output=string")
+                .multicast()
+                .to("direct:saveFile", "direct:index", "direct:transformHtml");
+        
+        from("direct:transformIso")
+                .to("xslt:ISO19139ToNMDC.xsl?saxon=false&output=string")
+                .multicast()
+                .to("direct:saveFile", "direct:index", "direct:transformHtml");
+        
+        from("direct:saveFile")
+                .to(FILE_CMP_NAME + moduleConf.getString("nmdc.savedir") + CHARSET_PARAMETER);
+        
+        from("direct:index")
+                .setHeader(Exchange.HTTP_METHOD, constant(org.apache.camel.component.http4.HttpMethods.POST))
+                .setHeader(Exchange.CONTENT_TYPE, constant("text/xml; charset=UTF-8"))                
+                .to("http4://" + moduleConf.getString("solr.url") + "/solr/nmdc/update?commitWithin=30000&authUsername=" + moduleConf.getString("solr.username") + "&authPassword=" + moduleConf.getString("solr.password") + "&authenticationPreemptive=true&tr=update.xslt");
+        
+        from("direct:transformHtml")
+                .to("jms:queue:nmdc/harvest-transform-html");
+        
     }
 }

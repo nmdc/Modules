@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!-- ====================================================== -->
-<!-- A translator for DIF (GCMD) to ISO 19115 -->
-<!-- Written by Dave Connell (Australian Antarctic Data Centre) and Andy Townsend (Australian Antarctic Data Centre) -->
-<!-- Released on the 5th of June, 2008.  Last updated on the 6th of March, 2009 -->
-<!-- Version 2.1 -->
-<!-- ====================================================== -->
-
-<!-- Trap for young players - name space definitions must match those served out of geoserver -->
 <xsl:stylesheet version="2.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:nmdc="http://www.nmdc.org/2015/01/Metadata"
@@ -22,8 +13,8 @@
             <xsl:element name="Type" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
                 <xsl:value-of select="./dif:Type" />
             </xsl:element>
-            <xsl:element name="SubType" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
-                <xsl:value-of select="./dif:SubType" />
+            <xsl:element name="Subtype" namespace="http://gcmd.gsfc.nasa.gov/Aboutus/xml/dif/">
+                <xsl:value-of select="./dif:Subtype" />
             </xsl:element>
         </xsl:copy>
     </xsl:template>
@@ -87,7 +78,7 @@
                 <xsl:variable name="maxLatitude" select="max(/dif:DIF/*/dif:Northernmost_Latitude)" />
                 <xsl:if test="($minLongitude) and ($maxLongitude) and ($minLatitude) and ($maxLatitude)">
                     <xsl:choose>
-                        <xsl:when test="abs($minLongitude - $maxLongitude) &lt; 0.1 and abs($minLatitude - $maxLatitude) &lt; 0.1">
+                        <xsl:when test="abs($minLongitude - $maxLongitude) &lt; 0.1 or abs($minLatitude - $maxLatitude) &lt; 0.1">
                             <nmdc:point>
                                 <xsl:value-of select="$minLongitude"/>
                                 <xsl:text> </xsl:text>
@@ -95,17 +86,17 @@
                             </nmdc:point>
                         </xsl:when>
                         <xsl:otherwise>
-                            <nmdc:polygon>POLYGON((<xsl:value-of select="$minLongitude"/>
+                            <nmdc:polygon>POLYGON((<xsl:value-of select="max(($minLongitude - 0.1, -90))"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>
+                                <xsl:value-of select="max(($minLatitude - 0.1, -90))"/>,<xsl:value-of select="min(($maxLongitude + 0.1, 90))"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:value-of select="$minLatitude"/>,<xsl:value-of select="$maxLongitude"/>
+                                <xsl:value-of select="max(($minLatitude - 0.1, -90))"/>,<xsl:value-of select="min(($maxLongitude + 0.1, 90))"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>
+                                <xsl:value-of select="min(($maxLatitude + 0.1, 90))"/>,<xsl:value-of select="max(($minLongitude - 0.1, -90))"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:value-of select="$maxLatitude"/>,<xsl:value-of select="$minLongitude"/>
+                                <xsl:value-of select="min(($maxLatitude + 0.1, 90))"/>,<xsl:value-of select="max(($minLongitude - 0.1, -90))"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:value-of select="$minLatitude" />))</nmdc:polygon>
+                                <xsl:value-of select="max(($minLatitude - 0.1, -90))" />))</nmdc:polygon>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:if>

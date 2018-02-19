@@ -1,6 +1,9 @@
 package no.nmdc.module.validate.routebuilder;
 
+import no.nmdc.module.validate.process.DifValidationProcessor;
+import no.nmdc.module.validate.process.Iso19139ValidationProcessor;
 import no.nmdc.module.validate.service.ValidationErrorService;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.builder.xml.XPathBuilder;
@@ -68,7 +71,7 @@ public class ValidateRouteBuilder extends RouteBuilder {
                             .setHeader("dinst", isoDinst)                        
                         .otherwise()
                             .to("log:end?level=WARN&showHeaders=true&showBody=false")
-                    .endChoice()
+                    .endChoice()                    
                 .endDoTry()
                 .doCatch(org.apache.camel.ValidationException.class, RuntimeException.class)                
                     .setHeader("exception",simple("${property.CamelExceptionCaught}"))                
@@ -77,15 +80,17 @@ public class ValidateRouteBuilder extends RouteBuilder {
                 .doTry()
                     .choice()
                         .when().xpath("/dif:DIF", DIF_NAMESPACES)                         
-                            .to("validator:dif.xsd?useDom=false")
+                            .to("validator:dif.xsd?useDom=false&useSharedSchema=false")
                             .setHeader("format", simple("dif"))
                             .to("log:end?level=INFO&showHeaders=true&showBody=false")
+                            //.process(new DifValidationProcessor())
                             .to("jms:queue:nmdc/harvest-transform")
                             .to("jms:queue:nmdc/harvest-transform-dif")                            
                         .when().xpath("/gmd:MD_Metadata", ISO19139_NAMESPACES)
-                            .to("validator:iso19139.xsd")
+                            .to("validator:iso19139.xsd?useDom=false&useSharedSchema=false")
                             .setHeader("format", simple("iso-19139"))
                             .to("log:end?level=INFO&showHeaders=true&showBody=false")
+                            //.process(new Iso19139ValidationProcessor())
                             .to("jms:queue:nmdc/harvest-transform")
                             .to("jms:queue:nmdc/harvest-transform-dif")
                         .otherwise()
